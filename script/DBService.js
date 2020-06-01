@@ -45,10 +45,10 @@ const DBService = class {
         return this.getData(this.lastResponse);
     }
 
-    getSearchResultTv = (query) => {
+    getSearchResult = (query) => {
         // temporary variable
         let lang = "ru-RU";
-        this.lastResponse = `${SERVER_PATH}/search/tv?api_key=${API_KEY}&query=${query}&language=${lang}`;
+        this.lastResponse = `${SERVER_PATH}/search/multi?api_key=${API_KEY}&query=${query}&language=${lang}`;
         return this.getData(this.lastResponse);
     }
 
@@ -56,6 +56,40 @@ const DBService = class {
         // temporary variable
         let lang = "ru-RU";
         return this.getData(`${SERVER_PATH}/tv/${id}?api_key=${API_KEY}&language=${lang}`);
+    }
+
+    getTopRatedMovie = () => {
+        // temporary variable
+        let lang = "ru-RU";
+        this.lastResponse = `${SERVER_PATH}/movie/top_rated?api_key=${API_KEY}&language=${lang}`;
+        return this.getData(this.lastResponse);
+    }
+
+    getPopularMovie = () => {
+        // temporary variable
+        let lang = "ru-RU";
+        this.lastResponse = `${SERVER_PATH}/movie/popular?api_key=${API_KEY}&language=${lang}`;
+        return this.getData(this.lastResponse);
+    }
+
+    getNowPlayingMovie = () => {
+        // temporary variable
+        let lang = "ru-RU";
+        this.lastResponse = `${SERVER_PATH}/movie/now_playing?api_key=${API_KEY}&language=${lang}`;
+        return this.getData(this.lastResponse);
+    }
+
+    getNewestMovie = () => {
+        // temporary variable
+        let lang = "ru-RU";
+        this.lastResponse = `${SERVER_PATH}/movie/upcoming?api_key=${API_KEY}&language=${lang}`;
+        return this.getData(this.lastResponse);
+    }
+
+    getMovieCard = id => {
+        // temporary variable
+        let lang = "ru-RU";
+        return this.getData(`${SERVER_PATH}/movie/${id}?api_key=${API_KEY}&language=${lang}`);
     }
 
     getPageFromLastResponse = page => {

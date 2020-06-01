@@ -80,11 +80,6 @@
                         <span>На неделю</span>
                     </a>
                 </li>
-                <li>
-                    <a href="#" id="upcoming-tv">
-                        <span>Скоро на экранах</span>
-                    </a>
-                </li>
             </ul>
         </li>
         <li>
@@ -94,18 +89,13 @@
             </a>
             <ul class="dropdown-list">
                 <li>
-                    <a href="#" id="today-movie">
-                        <span>Сегодня</span>
+                    <a href="#" id="now-playing-movie">
+                        <span>Новейшие</span>
                     </a>
                 </li>
                 <li>
-                    <a href="#" id="week-movie">
-                        <span>На неделю</span>
-                    </a>
-                </li>
-                <li>
-                    <a href="#" id="upcoming-movie">
-                        <span>Скоро на экранах</span>
+                    <a href="#" id="newest-movie">
+                        <span>Сейчас на экранах</span>
                     </a>
                 </li>
             </ul>
@@ -128,7 +118,7 @@
                     <input type="text" class="search__form-input" id="searchText"
                            placeholder="Введите название...">
                 </label>
-<!--                <button type="submit">Поиск</button>-->
+                <!--                <button type="submit">Поиск</button>-->
             </form>
         </section>
     </div>
@@ -139,9 +129,9 @@
         <div class="btn-container">
             <button class="btn-search">Подробный поиск</button>
         </div>
-        <section class="tv-shows">
-            <h3 class="tv-shows__head"></h3>
-            <ul class="tv-shows__list"></ul>
+        <section class="cards">
+            <h3 class="cards__head"></h3>
+            <ul class="cards__list"></ul>
         </section>
         <div class="paginator-container">
             <button style="visibility: hidden" class="pagination-btn">Показать больше</button>
@@ -154,7 +144,7 @@
         <div class="poster__wrapper">
             <div class="poster">
                 <div class="image__content">
-                    <img class="tv-card__img"
+                    <img class="card__img"
                          src="img/no-poster.jpg"
                          alt="Название шоу">
                 </div>
@@ -219,6 +209,7 @@
 <button class="btn-up" style="visibility: hidden">Наверх</button>
 
 <script src="script/DBService.js"></script>
+<script src="script/Card.js"></script>
 <script src="script/main.js"></script>
 
 <script src="https://use.fontawesome.com/c79e2f3459.js"></script>

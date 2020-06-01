@@ -532,11 +532,11 @@ main {
     color: #ffffff;
 }
 
-.tv-shows__head {
+.cards__head {
     margin: 15px 0;
 }
 
-.tv-shows__list {
+.cards__list {
     display: -ms-grid;
     display: grid;
     grid-template-columns: repeat(auto-fill, 185px);
@@ -547,12 +547,12 @@ main {
 }
 
 
-.tv-shows__item {
+.cards__item {
     min-width: 185px;
     margin: 15px 10px 30px;
 }
 
-.tv-card {
+.card {
     position: relative;
     max-width: 185px;
     min-height: 370px;
@@ -570,7 +570,7 @@ main {
     border: 2px solid #ff5a01;
 }
 
-.tv-card__head {
+.card__head {
     padding: 15px 15px 0;
     max-height: 80px;
     display: -webkit-box;
@@ -583,7 +583,7 @@ main {
 }
 
 
-.tv-card__vote {
+.card__vote {
     position: absolute;
     top: 18px;
     text-align: center;
@@ -596,7 +596,7 @@ main {
     font-weight: 900;
 }
 
-.tv-card__img {
+.card__img {
     height: 278px;
     width: 185px;
 }
@@ -623,17 +623,17 @@ main {
     border: 5px solid #ff5a01;
     border-radius: 5px;
     position: relative;
-	min-width: 600px;
+    min-width: 600px;
     max-width: 800px;
     min-height: 370px;
-	max-height: 550px;
+    max-height: 550px;
     padding: 35px 50px 35px 150px;
     background-color: #020814;
     font-size: 14px;
     line-height: 1.2;
     font-weight: 400;
     color: #ffffff;
-	margin: 0 200px;
+    margin: 0 200px;
 }
 
 .modal__content h2 {
@@ -647,8 +647,8 @@ main {
 }
 
 .modal__description {
-	overflow-y: auto;
-	max-height: 400px;
+    overflow-y: auto;
+    max-height: 400px;
 }
 
 .modal__description section {
@@ -767,10 +767,10 @@ main {
         padding: 0 60px;
     }
 
-	.cross {
-		top: 0;
-		right: 0;
-	}
+    .cross {
+        top: 0;
+        right: 0;
+    }
 }
 
 @media (max-width: 794px) {
@@ -783,31 +783,31 @@ main {
         width: 100%
     }
 
-    .tv-shows__list {
+    .cards__list {
         -ms-flex-pack: distribute;
         justify-content: space-around;
     }
 
-	.image__content {
-		position: static;
-		margin: 0 auto;
-	}
+    .image__content {
+        position: static;
+        margin: 0 auto;
+    }
 
-	.modal__content {
-		overflow-y: auto;
-		max-height: 400px;
-		padding: 30px;
-		border-width: 16px;
-	}
+    .modal__content {
+        overflow-y: auto;
+        max-height: 400px;
+        padding: 30px;
+        border-width: 16px;
+    }
 
-	.modal__description {
-		overflow-y: visible;
-		max-height: none;
-	}
+    .modal__description {
+        overflow-y: visible;
+        max-height: none;
+    }
 
-	.modal__content h2 {
-		margin-top: 15px;
-	}
+    .modal__content h2 {
+        margin-top: 15px;
+    }
 }
 
 @media (max-width: 655px) {
@@ -820,10 +820,10 @@ main {
         margin: 0 auto;
     }
 
-	.modal__content {
-		min-width: 320px;
-		width: 100%;
-	}
+    .modal__content {
+        min-width: 320px;
+        width: 100%;
+    }
 
 
 }
@@ -831,7 +831,7 @@ main {
 @media (max-width: 555px) {
 
 
-    .tv-shows__item {
+    .cards__item {
         -ms-flex-preferred-size: 100%;
         flex-basis: 100%;
         margin: 15px auto;

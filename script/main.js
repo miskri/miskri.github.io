@@ -5,18 +5,17 @@ const SERVER_PATH = "https://api.themoviedb.org/3";
 // main ui elements
 const leftMenu = document.querySelector(".left-menu"),
     hamburger = document.querySelector(".hamburger"),
-    tvShowsList = document.querySelector(".tv-shows__list"),
+    cardsList = document.querySelector(".cards__list"),
     modal = document.querySelector(".modal"),
     searchForm = document.querySelector(".search__form"),
     searchInput = document.querySelector(".search__form-input"),
-    outputTextInfo = document.querySelector(".tv-shows__head"),
+    outputTextInfo = document.querySelector(".cards__head"),
     paginator = document.querySelector(".pagination-btn"),
     upBtn = document.querySelector(".btn-up"),
     dropdowns = document.querySelectorAll(".dropdown");
 
 // film card elements
-const tvShows = document.querySelector(".tv-shows"),
-    cardImg = document.querySelector(".tv-card__img"),
+const cardImg = document.querySelector(".card__img"),
     title = document.querySelector(".modal__title"),
     genresList = document.querySelector(".genres-list"),
     rating = document.querySelector(".rating"),
@@ -34,60 +33,12 @@ const dbServiceUnit = new DBService();
 let nextPage = 1;
 
 function showLoading() {
-    tvShowsList.append(loading);
+    cardsList.append(loading);
 }
 
 function smoothToTop() {
     window.scrollTo({top: 0, behavior: "smooth"});
 }
-
-// card rendering from response
-const renderCard = response => {
-    if (response.page === 1) {
-        tvShowsList.textContent = "";
-    }
-
-    if (response.total_results === 0) {
-        outputTextInfo.textContent = "К сожалению, по вашему запросу ничего не обнаружено";
-    } else {
-        outputTextInfo.textContent = "Результаты поиска:";
-        response.results.forEach(item => {
-            const card = document.createElement("li");
-            card.uniqId = item.id;
-            card.classList.add("tv-shows__item");
-
-            const {
-                name: filmName,
-                poster_path: poster,
-                backdrop_path: backdrop,
-                vote_average: vote
-            } = item;
-
-            const posterIMG = poster ? IMAGE_URL + poster : "img/no-poster.jpg";
-            const backdropIMG = backdrop ? IMAGE_URL + backdrop : "img/no-poster.jpg";
-            const voteValue = vote ? `<span class="tv-card__vote">${vote}</span>` : "";
-
-            card.innerHTML = `
-        <a href="#" id="${card.uniqId}" class="tv-card">
-            ${voteValue}
-            <img class="tv-card__img"
-                src="${posterIMG}"
-                data-backdrop="${backdropIMG}"
-                alt="${filmName}">
-            <h4 class="tv-card__head">${filmName}</h4> 
-        </a>
-        `;
-            tvShowsList.append(card);
-        });
-    }
-    if (response.page < response.total_pages) {
-        paginator.style.visibility = "visible";
-        nextPage = response.page + 1;
-    } else {
-        paginator.style.visibility = "hidden";
-    }
-    loading.remove();
-};
 
 // get search value, get response for API and then render card if response is correct
 searchForm.addEventListener("submit", (event) => {
@@ -96,7 +47,8 @@ searchForm.addEventListener("submit", (event) => {
     searchInput.value = "";
     if (value) {
         showLoading()
-        dbServiceUnit.getSearchResultTv(value).then(renderCard);
+        outputTextInfo.textContent = "Результаты поиска:";
+        dbServiceUnit.getSearchResult(value).then(new Card().renderCard);
     }
 });
 
@@ -104,7 +56,7 @@ searchForm.addEventListener("submit", (event) => {
 //========================================================
 {
     showLoading()
-    dbServiceUnit.getPopularTv().then(renderCard).then(() => {
+    dbServiceUnit.getPopularTv().then(new Card().renderCard).then(() => {
         outputTextInfo.textContent = "Популярные сейчас сериалы и шоу:";
     });
 }
@@ -143,72 +95,119 @@ leftMenu.addEventListener("click", (event) => {
     if (target.closest("#top-rated-tv")) {
         showLoading();
         smoothToTop();
-        dbServiceUnit.getTopRatedTv().then(renderCard).then(() => {
+        dbServiceUnit.getTopRatedTv().then(new Card().renderCard).then(() => {
             outputTextInfo.textContent = "Самые оцененные сериалы и шоу:";
         });
     } else if (target.closest("#popular-tv")) {
         showLoading();
         smoothToTop();
-        dbServiceUnit.getPopularTv().then(renderCard).then(() => {
-            outputTextInfo.textContent = "Сериалы и шоу популярные сейчас:";
+        dbServiceUnit.getPopularTv().then(new Card().renderCard).then(() => {
+            outputTextInfo.textContent = "Популярные сейчас сериалы и шоу:";
         });
     } else if (target.closest("#week-tv")) {
         showLoading();
         smoothToTop();
-        dbServiceUnit.getWeekTv().then(renderCard).then(() => {
+        dbServiceUnit.getWeekTv().then(new Card().renderCard).then(() => {
             outputTextInfo.textContent = "Сериалы и шоу на этой неделе:";
         });
     } else if (target.closest("#today-tv")) {
         showLoading();
         smoothToTop();
-        dbServiceUnit.getTodayTv().then(renderCard).then(() => {
+        dbServiceUnit.getTodayTv().then(new Card().renderCard).then(() => {
             outputTextInfo.textContent = "Сериалы и шоу на сегодня:";
+        });
+    } else if (target.closest("#top-rated-movie")) {
+        showLoading();
+        smoothToTop();
+        dbServiceUnit.getTopRatedMovie().then(new Card().renderCard).then(() => {
+            outputTextInfo.textContent = "Самые оцененные фильмы:";
+        });
+    } else if (target.closest("#popular-movie")) {
+        showLoading();
+        smoothToTop();
+        dbServiceUnit.getPopularMovie().then(new Card().renderCard).then(() => {
+            outputTextInfo.textContent = "Популярные сейчас фильмы:";
+        });
+    } else if (target.closest("#newest-movie")) {
+        showLoading();
+        smoothToTop();
+        dbServiceUnit.getNowPlayingMovie().then(new Card().renderCard).then(() => {
+            outputTextInfo.textContent = "Сейчас в кинотеатрах:";
+        });
+    } else if (target.closest("#now-playing-movie")) {
+        showLoading();
+        smoothToTop();
+        dbServiceUnit.getNewestMovie().then(new Card().renderCard).then(() => {
+            outputTextInfo.textContent = "Фильмы, вышедшие недавно:";
         });
     }
 });
 
 // film card image changing
 const changeImage = (event) => {
-    const card = event.target.closest(".tv-shows__item");
+    const card = event.target.closest(".cards__item");
     if (card) {
-        const image = card.querySelector(".tv-card__img");
+        const image = card.querySelector(".card__img");
         if (image.dataset.backdrop) {
             [image.src, image.dataset.backdrop] = [image.dataset.backdrop, image.src];
         }
     }
 };
 
-tvShowsList.addEventListener("mouseover", changeImage);
-tvShowsList.addEventListener("mouseout", changeImage);
+cardsList.addEventListener("mouseover", changeImage);
+cardsList.addEventListener("mouseout", changeImage);
 
 // film card opening
-tvShowsList.addEventListener("click", (event) => {
+cardsList.addEventListener("click", (event) => {
     event.preventDefault();
     const target = event.target;
-    const card = target.closest(".tv-card");
+    const card = target.closest(".card");
     if (card) {
         card.append(loading);
-        //film card info rendering
-        dbServiceUnit.getTvCard(card.id)
-            .then(response => {
-                cardImg.src = IMAGE_URL + response.poster_path;
-                cardImg.alt = response.name;
-                title.textContent = response.name;
-                genresList.textContent = "";
-                for (const item of response.genres) {
-                    const genreName = item.name.charAt(0).toUpperCase() + item.name.slice(1);
-                    genresList.innerHTML += `<li>${genreName}</li>`;
-                }
-                const voteInfo = `${response.vote_average} (на основании ${response.vote_count} голосов)`;
-                rating.textContent = response.vote_average ? voteInfo : "Нет оценки";
-                description.textContent = response.overview;
-                modalLink.href = response.homepage;
-            })
-            .then(() => {
-                document.body.style.overflow = "hidden";
-                modal.classList.remove("hide");
-                loading.remove();
-            });
+        //tv card info rendering
+        if (card.classList.contains("tv")) {
+            dbServiceUnit.getTvCard(card.id)
+                .then(response => {
+                    cardImg.src = IMAGE_URL + response.poster_path;
+                    cardImg.alt = response.name;
+                    title.textContent = response.name;
+                    genresList.textContent = "";
+                    for (const item of response.genres) {
+                        const genreName = item.name.charAt(0).toUpperCase() + item.name.slice(1);
+                        genresList.innerHTML += `<li>${genreName}</li>`;
+                    }
+                    const voteInfo = `${response.vote_average} (на основании ${response.vote_count} голосов)`;
+                    rating.textContent = response.vote_average ? voteInfo : "Нет оценки";
+                    description.textContent = response.overview;
+                    modalLink.href = response.homepage;
+                })
+                .then(() => {
+                    document.body.style.overflow = "hidden";
+                    modal.classList.remove("hide");
+                    loading.remove();
+                });
+        } else if (card.classList.contains("movie")) { // movie card rendering
+            dbServiceUnit.getMovieCard(card.id)
+                .then(response => {
+                    cardImg.src = IMAGE_URL + response.poster_path;
+                    cardImg.alt = response.title;
+                    title.textContent = response.title;
+                    genresList.textContent = "";
+                    for (const item of response.genres) {
+                        const genreName = item.name.charAt(0).toUpperCase() + item.name.slice(1);
+                        genresList.innerHTML += `<li>${genreName}</li>`;
+                    }
+                    const voteInfo = `${response.vote_average} (на основании ${response.vote_count} голосов)`;
+                    rating.textContent = response.vote_average ? voteInfo : "Нет оценки";
+                    description.textContent = response.overview;
+                    modalLink.href = response.homepage;
+                })
+                .then(() => {
+                    document.body.style.overflow = "hidden";
+                    modal.classList.remove("hide");
+                    loading.remove();
+                });
+        }
     }
 });
 
@@ -225,7 +224,7 @@ modal.addEventListener("click", (event) => {
 paginator.addEventListener("click", (event) => {
     event.preventDefault();
     showLoading();
-    dbServiceUnit.getPageFromLastResponse(nextPage).then(renderCard);
+    dbServiceUnit.getPageFromLastResponse(nextPage).then(new Card().renderCard);
 });
 
 // page position checker for upBtn activating
