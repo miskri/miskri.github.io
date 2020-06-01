@@ -199,7 +199,8 @@ tvShowsList.addEventListener("click", (event) => {
                     const genreName = item.name.charAt(0).toUpperCase() + item.name.slice(1);
                     genresList.innerHTML += `<li>${genreName}</li>`;
                 }
-                rating.textContent = response.vote_average ? response.vote_average : "Нет оценки";
+                const voteInfo = `${response.vote_average} (на основании ${response.vote_count} голосов)`;
+                rating.textContent = response.vote_average ? voteInfo : "Нет оценки";
                 description.textContent = response.overview;
                 modalLink.href = response.homepage;
             })
