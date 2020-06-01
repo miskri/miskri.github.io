@@ -11,7 +11,8 @@ const leftMenu = document.querySelector(".left-menu"),
     searchInput = document.querySelector(".search__form-input"),
     outputTextInfo = document.querySelector(".tv-shows__head"),
     paginator = document.querySelector(".pagination-btn"),
-    upBtn = document.querySelector(".btn-up");
+    upBtn = document.querySelector(".btn-up"),
+    dropdowns = document.querySelectorAll(".dropdown");
 
 // film card elements
 const tvShows = document.querySelector(".tv-shows"),
@@ -122,6 +123,9 @@ document.addEventListener("click", (event) => {
     if (!target.closest(".left-menu")) {
         leftMenu.classList.remove("openMenu");
         hamburger.classList.remove("open");
+        dropdowns.forEach(item => {
+            item.classList.remove("active");
+        });
     }
 });
 
