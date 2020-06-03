@@ -51,21 +51,20 @@ const DBService = class {
                 [].push.apply(this.lastResults, item.results);
             }
         });
-        this.lastResults = this.shuffleResults(this.lastResults);
         let resultsCount = this.lastResults.length;
         if (resultsCount > 20) {
             resultsCount = 20;
         }
-        for (let i =0; i < resultsCount; i++) {
+        for (let i = 0; i < resultsCount; i++) {
             responseFinal.results[i] = this.lastResults.shift();
         }
+        responseFinal.results = this.shuffleResults(responseFinal.results);
         return responseFinal;
     }
 
     shuffleResults = (results) => {
-        let len = results.length;
-        if (len % 2 !== 0) { len -= 1}
-        for (let i = 0; i < len; i++) {
+        const len = Math.floor((results.length - 1) / 2);
+        for (let i = len; i < len; i++) {
             [results[i], results[len - i]] = [results[len - i], results[i]];
         }
         return results;
