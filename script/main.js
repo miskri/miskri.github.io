@@ -28,6 +28,7 @@ loading.className = "loading";
 
 const clientHeight = document.documentElement.clientHeight;
 
+const cardRendererUnit = new CardRenderer();
 const dbServiceUnit = new DBService();
 
 let nextPage = 1;
@@ -46,9 +47,9 @@ searchForm.addEventListener("submit", (event) => {
     const value = searchInput.value;
     searchInput.value = "";
     if (value) {
-        showLoading()
+        showLoading();
         outputTextInfo.textContent = "Результаты поиска:";
-        dbServiceUnit.getSearchResult(value).then(new Card().renderCard);
+        dbServiceUnit.getSearchResults(value, undefined).then(cardRendererUnit.renderCards);
     }
 });
 
@@ -56,7 +57,7 @@ searchForm.addEventListener("submit", (event) => {
 //========================================================
 {
     showLoading()
-    dbServiceUnit.getPopularTv().then(new Card().renderCard).then(() => {
+    dbServiceUnit.getPopularTv().then(cardRendererUnit.renderCards).then(() => {
         outputTextInfo.textContent = "Популярные сейчас сериалы и шоу:";
     });
 }
@@ -95,49 +96,49 @@ leftMenu.addEventListener("click", (event) => {
     if (target.closest("#top-rated-tv")) {
         showLoading();
         smoothToTop();
-        dbServiceUnit.getTopRatedTv().then(new Card().renderCard).then(() => {
+        dbServiceUnit.getTopRatedTv().then(cardRendererUnit.renderCards).then(() => {
             outputTextInfo.textContent = "Самые оцененные сериалы и шоу:";
         });
     } else if (target.closest("#popular-tv")) {
         showLoading();
         smoothToTop();
-        dbServiceUnit.getPopularTv().then(new Card().renderCard).then(() => {
+        dbServiceUnit.getPopularTv().then(cardRendererUnit.renderCards).then(() => {
             outputTextInfo.textContent = "Популярные сейчас сериалы и шоу:";
         });
     } else if (target.closest("#week-tv")) {
         showLoading();
         smoothToTop();
-        dbServiceUnit.getWeekTv().then(new Card().renderCard).then(() => {
+        dbServiceUnit.getWeekTv().then(cardRendererUnit.renderCards).then(() => {
             outputTextInfo.textContent = "Сериалы и шоу на этой неделе:";
         });
     } else if (target.closest("#today-tv")) {
         showLoading();
         smoothToTop();
-        dbServiceUnit.getTodayTv().then(new Card().renderCard).then(() => {
+        dbServiceUnit.getTodayTv().then(cardRendererUnit.renderCards).then(() => {
             outputTextInfo.textContent = "Сериалы и шоу на сегодня:";
         });
     } else if (target.closest("#top-rated-movie")) {
         showLoading();
         smoothToTop();
-        dbServiceUnit.getTopRatedMovie().then(new Card().renderCard).then(() => {
+        dbServiceUnit.getTopRatedMovie().then(cardRendererUnit.renderCards).then(() => {
             outputTextInfo.textContent = "Самые оцененные фильмы:";
         });
     } else if (target.closest("#popular-movie")) {
         showLoading();
         smoothToTop();
-        dbServiceUnit.getPopularMovie().then(new Card().renderCard).then(() => {
+        dbServiceUnit.getPopularMovie().then(cardRendererUnit.renderCards).then(() => {
             outputTextInfo.textContent = "Популярные сейчас фильмы:";
         });
     } else if (target.closest("#newest-movie")) {
         showLoading();
         smoothToTop();
-        dbServiceUnit.getNowPlayingMovie().then(new Card().renderCard).then(() => {
+        dbServiceUnit.getNowPlayingMovie().then(cardRendererUnit.renderCards).then(() => {
             outputTextInfo.textContent = "Сейчас в кинотеатрах:";
         });
     } else if (target.closest("#now-playing-movie")) {
         showLoading();
         smoothToTop();
-        dbServiceUnit.getNewestMovie().then(new Card().renderCard).then(() => {
+        dbServiceUnit.getNewestMovie().then(cardRendererUnit.renderCards).then(() => {
             outputTextInfo.textContent = "Фильмы, вышедшие недавно:";
         });
     }
@@ -224,7 +225,7 @@ modal.addEventListener("click", (event) => {
 paginator.addEventListener("click", (event) => {
     event.preventDefault();
     showLoading();
-    dbServiceUnit.getPageFromLastResponse(nextPage).then(new Card().renderCard);
+    dbServiceUnit.getNextPageFromResponses(nextPage).then(cardRendererUnit.renderCards);
 });
 
 // page position checker for upBtn activating
