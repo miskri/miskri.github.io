@@ -54,6 +54,7 @@ const CardRenderer = class {
         card.innerHTML = `
         <a href="#" id="${card.uniqId}" class="card tv">
             ${voteValue}
+            <span class="card__type">Сериал & Шоу</span>
             <img class="card__img"
                 src="${posterIMG}"
                 data-backdrop="${backdropIMG}"
@@ -83,6 +84,7 @@ const CardRenderer = class {
         card.innerHTML = `
         <a href="#" id="${card.uniqId}" class="card movie">
             ${voteValue}
+            <span class="card__type">Кинофильм</span>
             <img class="card__img"
                 src="${posterIMG}"
                 data-backdrop="${backdropIMG}"

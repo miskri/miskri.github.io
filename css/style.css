@@ -596,6 +596,20 @@ main {
     font-weight: 900;
 }
 
+.card__type {
+    position: absolute;
+    bottom: 80px;
+    text-align: center;
+    color: #FFFFFF;
+    background-color: #ff5a01;
+    height: 25px;
+    width: 100%;
+    font-size: medium;
+    font-weight: bold;
+    display: inline-block;
+    line-height: 25px;
+}
+
 .card__img {
     height: 278px;
     width: 185px;
