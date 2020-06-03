@@ -4,6 +4,7 @@ const DBService = class {
         // temporary variable
         this.lang = "ru-RU";
         this.lastQuery = "";
+        this.lastResults = [];
     }
 
     getData = async (url) => {
@@ -30,6 +31,9 @@ const DBService = class {
 
     getSearchResults = async (query = this.lastQuery, page = 1) => {
         this.lastResponse = "SEARCH";
+        if (page === 1) {
+            this.lastResults = [];
+        }
         this.lastQuery = query;
         const movieQuery = `${SERVER_PATH}/search/movie?api_key=${API_KEY}&query=${query}&language=${this.lang}&page=${page}`;
         const tvQuery = `${SERVER_PATH}/search/tv?api_key=${API_KEY}&query=${query}&language=${this.lang}&page=${page}`;
@@ -44,10 +48,27 @@ const DBService = class {
                 if (item.total_pages > responseFinal.total_pages) {
                     responseFinal.total_pages = item.total_pages;
                 }
-                [].push.apply(responseFinal.results, item.results);
+                [].push.apply(this.lastResults, item.results);
             }
         });
+        this.lastResults = this.shuffleResults(this.lastResults);
+        let resultsCount = this.lastResults.length;
+        if (resultsCount > 20) {
+            resultsCount = 20;
+        }
+        for (let i =0; i < resultsCount; i++) {
+            responseFinal.results[i] = this.lastResults.shift();
+        }
         return responseFinal;
+    }
+
+    shuffleResults = (results) => {
+        let len = results.length;
+        if (len % 2 !== 0) { len -= 1}
+        for (let i = 0; i < len; i++) {
+            [results[i], results[len - i]] = [results[len - i], results[i]];
+        }
+        return results;
     }
 
     //=======TV SHOWS=======

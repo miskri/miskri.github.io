@@ -237,6 +237,11 @@ window.addEventListener("scroll", () => {
     }
 });
 
+// move to top after page reloading
+window.addEventListener("beforeunload", () => {
+    window.scrollTo(0, 0);
+});
+
 // move to top of page
 upBtn.addEventListener("click", () => {
     smoothToTop();
