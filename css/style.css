@@ -105,6 +105,14 @@ button:hover {
     padding-bottom: 30px;
 }
 
+.btn-fast-search {
+    border-radius: 0;
+    background-color: #ff5a01;
+    float: right;
+    height: 35px;
+    width: 38px;
+}
+
 .btn-search {
     font-size: 18px;
     height: 45px;
@@ -508,28 +516,36 @@ main {
 }
 
 .search__form {
-    padding-top: 15px;
-}
-
-.search__form-block {
-    display: block;
-    padding-top: 7px;
-    padding-bottom: 7px;
-    border-bottom: 2px solid #ff5a01;
+    padding-top: 6px;
+    display: flex;
+    flex-flow: row wrap;
+    align-items: center;
+    justify-content: space-between;
 }
 
 .search__form-head {
+    padding-top: 6px;
+    padding-bottom: 5px;
     font-size: 20px;
     font-weight: 700;
 }
 
 .search__form-input {
-    width: 100%;
+    width: 75%;
     padding-top: 5px;
+    padding-left: 7px;
     border-style: none;
     outline: none;
     background: transparent;
-    color: #ffffff;
+    color: white;
+}
+
+.search__form-hr {
+    border: 1px solid #ff5a01;
+    width: 100%;
+    box-sizing: content-box;
+    margin-top: 0;
+    overflow: visible;
 }
 
 .cards__head {

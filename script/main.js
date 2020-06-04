@@ -12,7 +12,8 @@ const leftMenu = document.querySelector(".left-menu"),
     outputTextInfo = document.querySelector(".cards__head"),
     paginator = document.querySelector(".pagination-btn"),
     upBtn = document.querySelector(".btn-up"),
-    dropdowns = document.querySelectorAll(".dropdown");
+    dropdowns = document.querySelectorAll(".dropdown"),
+    fastSearchBtn = document.querySelector(".btn-fast-search");
 
 // film card elements
 const cardImg = document.querySelector(".card__img"),
@@ -51,6 +52,10 @@ searchForm.addEventListener("submit", (event) => {
         outputTextInfo.textContent = "Результаты поиска:";
         dbServiceUnit.getSearchResults(value, undefined).then(cardRendererUnit.renderCards);
     }
+});
+
+fastSearchBtn.addEventListener("click", (event) => {
+    searchForm.submit = true;
 });
 
 

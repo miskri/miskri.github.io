@@ -85,12 +85,12 @@ const DBService = class {
     //=======TRENDING=======
 
     getTrendingDay = () => {
-        this.lastResponse = `${SERVER_PATH}/trending/all/day?api_key=${API_KEY}`;
+        this.lastResponse = `${SERVER_PATH}/trending/all/day?api_key=${API_KEY}&language=${this.lang}`;
         return this.getData(this.lastResponse);
     }
 
     getTrendingWeek = () => {
-        this.lastResponse = `${SERVER_PATH}/trending/all/week?api_key=${API_KEY}`;
+        this.lastResponse = `${SERVER_PATH}/trending/all/week?api_key=${API_KEY}&language=${this.lang}`;
         return this.getData(this.lastResponse);
     }
 
