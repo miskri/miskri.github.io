@@ -57,8 +57,8 @@ searchForm.addEventListener("submit", (event) => {
 //========================================================
 {
     showLoading()
-    dbServiceUnit.getPopularTv().then(cardRendererUnit.renderCards).then(() => {
-        outputTextInfo.textContent = "Популярные сейчас сериалы и шоу:";
+    dbServiceUnit.getTrendingDay().then(cardRendererUnit.renderCards).then(() => {
+        outputTextInfo.textContent = "Популярно сегодня:";
     });
 }
 //========================================================
@@ -93,7 +93,19 @@ leftMenu.addEventListener("click", (event) => {
         hamburger.classList.add("open");
     }
 
-    if (target.closest("#top-rated-tv")) {
+    if (target.closest("#trending-day")) {
+        showLoading();
+        smoothToTop();
+        dbServiceUnit.getTrendingDay().then(cardRendererUnit.renderCards).then(() => {
+            outputTextInfo.textContent = "Популярно сегодня:";
+        });
+    } else if (target.closest("#trending-week")) {
+        showLoading();
+        smoothToTop();
+        dbServiceUnit.getTrendingWeek().then(cardRendererUnit.renderCards).then(() => {
+            outputTextInfo.textContent = "Популярно на этой неделе:";
+        });
+    } else if (target.closest("#top-rated-tv")) {
         showLoading();
         smoothToTop();
         dbServiceUnit.getTopRatedTv().then(cardRendererUnit.renderCards).then(() => {

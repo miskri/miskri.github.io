@@ -3,7 +3,7 @@ const CardRenderer = class {
     renderCards = (response) => {
         if (response.total_results === 0) {
             cardsList.textContent = "";
-            if (response.error) {
+            if (response.hasOwnProperty("errors")) {
                 outputTextInfo.textContent = "Некорректный запрос к API со стороны сервиса. " +
                     "Пожалуйста, сообщите об ошибке";
             } else {
@@ -17,7 +17,7 @@ const CardRenderer = class {
 
             response.results.forEach(item => {
                 // movie card does not contains name field
-                if (item.name) {
+                if (item.hasOwnProperty("name")) {
                     this.renderTvCards(item);
                 } else {
                     this.renderMovieCards(item);

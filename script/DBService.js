@@ -8,11 +8,7 @@ const DBService = class {
     }
 
     getData = async (url) => {
-        let response = {};
-        response = await fetch(url).then(resp => resp.json().catch(() => {
-            response = {total_results: 0, error: `Can not get data from url ${url}`};
-        }));
-        return response;
+        return await fetch(url).then(resp => resp.json());
     }
 
     getTestData = () => {
@@ -30,7 +26,7 @@ const DBService = class {
     }
 
     getSearchResults = async (query = this.lastQuery, page = 1) => {
-        this.lastResponse = "SEARCH";
+        this.lastResponse = "SIMPLE_SEARCH";
         if (page === 1) {
             this.lastResults = [];
         }
@@ -38,36 +34,64 @@ const DBService = class {
         const movieQuery = `${SERVER_PATH}/search/movie?api_key=${API_KEY}&query=${query}&language=${this.lang}&page=${page}`;
         const tvQuery = `${SERVER_PATH}/search/tv?api_key=${API_KEY}&query=${query}&language=${this.lang}&page=${page}`;
         const responses = [await this.getData(movieQuery), await this.getData(tvQuery)];
+        // console.log(responses[0].total_results, responses[1].total_results) // TODO for testing
         const responseFinal = {page: 0, total_results: 0, total_pages: 0, results: []};
+        // array for last 20-40 results replacing
+        let itemResultsArray = [];
         responses.forEach(item => {
-            if (!item.error) {
+            if (!item.hasOwnProperty("errors")) {
                 if (item.page > responseFinal.page) {
                     responseFinal.page = item.page;
                 }
                 responseFinal.total_results += item.total_results;
-                if (item.total_pages > responseFinal.total_pages) {
-                    responseFinal.total_pages = item.total_pages;
-                }
-                [].push.apply(this.lastResults, item.results);
+                itemResultsArray = itemResultsArray.concat(item.results);
             }
         });
-        let resultsCount = this.lastResults.length;
+        responseFinal.total_pages = Math.ceil(responseFinal.total_results / 20);
+        let resultsCount = itemResultsArray.length + this.lastResults.length;
         if (resultsCount > 20) {
+            itemResultsArray = this.replaceResults(itemResultsArray);
             resultsCount = 20;
         }
+        this.lastResults = this.lastResults.concat(itemResultsArray);
+        itemResultsArray = [];
         for (let i = 0; i < resultsCount; i++) {
             responseFinal.results[i] = this.lastResults.shift();
         }
-        responseFinal.results = this.shuffleResults(responseFinal.results);
+        // console.log(responseFinal); // TODO for testing
         return responseFinal;
     }
 
-    shuffleResults = (results) => {
-        const len = Math.floor((results.length - 1) / 2);
-        for (let i = len; i < len; i++) {
+    // result is fixed position, e.g. arr[5] = arr[8] TODO rewrite
+    replaceResults = (results) => {
+        let len = results.length - 2;
+        for (let i = 0; i < len / 2; i += 2) {
             [results[i], results[len - i]] = [results[len - i], results[i]];
         }
         return results;
+    }
+
+    // result is random position, e.g. arr[5] = arr[9] || arr[5] = arr[17] || ...
+    shuffleResults = (results) => {
+        for (let i = results.length - 1; i > 0; i--) {
+            const j = Math.floor(Math.random() * i)
+            const temp = results[i]
+            results[i] = results[j]
+            results[j] = temp
+        }
+        return results;
+    }
+
+    //=======TRENDING=======
+
+    getTrendingDay = () => {
+        this.lastResponse = `${SERVER_PATH}/trending/all/day?api_key=${API_KEY}`;
+        return this.getData(this.lastResponse);
+    }
+
+    getTrendingWeek = () => {
+        this.lastResponse = `${SERVER_PATH}/trending/all/week?api_key=${API_KEY}`;
+        return this.getData(this.lastResponse);
     }
 
     //=======TV SHOWS=======
@@ -127,9 +151,12 @@ const DBService = class {
     //=======LAST RESPONSE=======
 
     getNextPageFromResponses = page => {
-        if (this.lastResponse !== "SEARCH") {
-            return this.getData(this.lastResponse + `&page=${page}`);
+        if (this.lastResponse === "DETAILED_SEARCH") {
+            // TODO
         }
-        return this.getSearchResults(undefined, page);
+        if (this.lastResponse === "SIMPLE_SEARCH") {
+            return this.getSearchResults(undefined, page);
+        }
+        return this.getData(this.lastResponse + `&page=${page}`);
     }
 }
