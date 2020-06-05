@@ -5,7 +5,7 @@ const CardRenderer = class {
             cardsList.textContent = "";
             if (response.hasOwnProperty("errors")) {
                 outputTextInfo.textContent = "Некорректный запрос к API со стороны сервиса. " +
-                    "Пожалуйста, сообщите об ошибке";
+                    "Пожалуйста, сообщите об ошибке Мишане";
             } else {
                 outputTextInfo.textContent = "К сожалению, по вашему запросу ничего не обнаружено";
             }

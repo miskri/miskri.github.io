@@ -25,6 +25,10 @@ const DBService = class {
 
     }
 
+    getDetailedSearchResultsMovie = async () => {
+
+    }
+
     getSearchResults = async (query = this.lastQuery, page = 1) => {
         this.lastResponse = "SIMPLE_SEARCH";
         if (page === 1) {

@@ -14,7 +14,11 @@ const leftMenu = document.querySelector(".left-menu"),
     upBtn = document.querySelector(".btn-up"),
     dropdowns = document.querySelectorAll(".dropdown"),
     fastSearchBtn = document.querySelector(".btn-fast-search"),
-    titleWrapper = document.querySelector(".title-wrapper");
+    titleWrapper = document.querySelector(".title-wrapper"),
+    detailedSearchBtn = document.querySelector(".btn-detailed-search"),
+    detailedSearchBtnContainer = document.querySelector(".btn-container"),
+    detailedSearchBlock = document.querySelector(".detailed-search"),
+    detailedSearchCancel = document.querySelector(".btn-detailed-search-cancel");
 
 // film card elements
 const cardImg = document.querySelector(".card__img"),
@@ -24,7 +28,6 @@ const cardImg = document.querySelector(".card__img"),
     description = document.querySelector(".description"),
     modalLink = document.querySelector(".modal__link");
 
-const preloader = document.querySelector(".preloader"); // TODO
 const loading = document.createElement("div");
 loading.className = "loading";
 
@@ -61,14 +64,27 @@ fastSearchBtn.addEventListener("click", (event) => {
 
 
 //========================================================
-{
+function loadDefault() {
     showLoading()
     dbServiceUnit.getTrendingDay().then(cardRendererUnit.renderCards).then(() => {
         outputTextInfo.textContent = "Популярно сегодня:";
     });
 }
+
+loadDefault();
 //========================================================
 
+// show detailed search params on click
+detailedSearchBtn.addEventListener("click", (event) => {
+    detailedSearchBlock.style.display="inherit";
+    detailedSearchBtnContainer.style.display = "none";
+});
+
+// load start page
+detailedSearchCancel.addEventListener("click", (event) => {
+    detailedSearchBlock.style.display="none";
+    detailedSearchBtnContainer.style.display = "flex";
+});
 
 // left bar opening
 hamburger.addEventListener("click", () => {

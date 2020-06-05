@@ -138,8 +138,25 @@
 <main>
     <div class="container">
         <div class="btn-container">
-            <button class="btn-search">Подробный поиск</button>
+            <button class="btn-detailed-search">Подробный поиск</button>
         </div>
+        <section class="detailed-search" style="display: none">
+            <div class="btn-container-search">
+                <button class="btn-detailed-search-cancel">Отмена</button>
+            </div>
+            <div class="search-param-container">
+                <div class="search-param-elem">
+                    <h3 class="param-title">Категория поиска: </h3>
+                    <div class ="params-container">
+                        <button class="param-btn">Фильмы</button>
+                        <button class="param-btn">Сериалы & Шоу</button>
+                    </div>
+                </div>
+                <div class="btn-container-search">
+                    <button class="btn-detailed-search-apply">Искать</button>
+                </div>
+            </div>
+        </section>
         <section class="cards">
             <h3 class="cards__head"></h3>
             <ul class="cards__list"></ul>

@@ -5,6 +5,11 @@
 * Browsers: last 4 version
 */
 
+:root {
+    /*--main-color: #ff4800;*/
+    --main-color: #ff5a01;
+}
+
 @font-face {
     font-family: "Museo Sans";
     src: url("../fonts/MuseoSansCyrl-500.woff2") format("woff2"),
@@ -81,7 +86,7 @@ li {
 button {
     color: white;
     border: none;
-    background-color: #ff5a01;
+    background-color: var(--main-color);
     border-radius: 15px;
     height: 30px;
     width: 150px;
@@ -98,21 +103,70 @@ button:hover {
     border-color: transparent;
 }
 
+.search-param-container {
+
+}
+
+.search-param-elem {
+    padding-bottom: 15px;
+    display: flex;
+    flex-flow: row wrap;
+    align-items: center;
+    justify-content: center;
+}
+
+.param-title {
+    font-family: "Noto Sans", Arial, sans-serif;
+    color: white;
+}
+
+.param-btn {
+    margin: 5px;
+}
+
+.params-container {
+    min-width: 300px;
+    width: 100%;
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: inherit;
+}
+
 .btn-container {
     display: flex;
     justify-content: center;
     padding-bottom: 30px;
 }
 
+.btn-container-search {
+    display: flex;
+    justify-content: center;
+    padding-bottom: 15px;
+}
+
+.btn-detailed-search-cancel {
+    border-radius: 15px;
+    background-color: var(--main-color);
+    height: 35px;
+    width: 120px;
+}
+
+.btn-detailed-search-apply {
+    border-radius: 15px;
+    background-color: var(--main-color);
+    height: 35px;
+    width: 120px;
+}
+
 .btn-fast-search {
     border-radius: 0;
-    background-color: #ff5a01;
+    background-color: var(--main-color);
     float: right;
     height: 35px;
     width: 38px;
 }
 
-.btn-search {
+.btn-detailed-search {
     font-size: 18px;
     height: 45px;
     width: 220px;
@@ -148,7 +202,7 @@ button:hover {
 .pagination-btn {
     color: white;
     border: none;
-    background-color: #ff5a01;
+    background-color: var(--main-color);
     border-radius: 15px;
     height: 40px;
     width: 200px;
@@ -202,12 +256,12 @@ button:hover {
 
 .left-menu:hover {
     height: 100%;
-    background-color: #ff5a01;
+    background-color: var(--main-color);
 }
 
 .left-menu.openMenu {
     height: 100%;
-    background-color: #ff5a01;
+    background-color: var(--main-color);
 }
 
 
@@ -215,7 +269,7 @@ button:hover {
     width: 40px;
     height: 40px;
     border-radius: 50%;
-    background-color: #ff5a01;
+    background-color: var(--main-color);
     float: right;
     margin-right: 5px;
     margin-top: 5px;
@@ -230,7 +284,7 @@ button:hover {
 }
 
 .hamburger.open {
-    background-color: #ff5a01;
+    background-color: var(--main-color);
     -webkit-transition: all ease .5s;
     -o-transition: all ease .5s;
     transition: all ease .5s;
@@ -497,7 +551,7 @@ main {
     font-weight: 900;
     padding-left: 12px;
     text-transform: uppercase;
-    color: #ff5a01;
+    color: var(--main-color);
 }
 
 .subtitle {
@@ -551,7 +605,7 @@ main {
 }
 
 .search__form-hr {
-    border: 1px solid #ff5a01;
+    border: 1px solid var(--main-color);
     width: 100%;
     box-sizing: content-box;
     margin-top: 0;
@@ -559,6 +613,7 @@ main {
 }
 
 .cards__head {
+    color: white;
     font-family: "Noto Sans", sans-serif;
     margin: 15px 0;
     padding-left: 10px;
@@ -595,10 +650,11 @@ main {
     -webkit-box-shadow: 3px 3px 20px 1px rgba(200, 200, 200, 0.25);
     box-shadow: 3px 3px 20px 1px rgba(200, 200, 200, 0.25);
     background-color: rgba(9, 20, 42, 0.35);
-    border: 2px solid #ff5a01;
+    border: 2px solid var(--main-color);
 }
 
 .card__head {
+    color: white;
     font-family: "Noto Sans", sans-serif;
     font-size: 15px;
     padding: 21px 10px 0;
@@ -620,7 +676,7 @@ main {
     top: 18px;
     text-align: center;
     color: #FFFFFF;
-    background-color: #ff5a01;
+    background-color: var(--main-color);
     height: 25px;
     width: 44px;
     display: inline-block;
@@ -635,7 +691,7 @@ main {
     bottom: 75px;
     text-align: center;
     color: #FFFFFF;
-    background-color: #ff5a01;
+    background-color: var(--main-color);
     height: 25px;
     width: 100%;
     font-weight: bold;
@@ -662,12 +718,12 @@ main {
     align-items: center;
     width: 100vw;
     height: 100vh;
-    z-index: 990;
+    z-index: 1001;
     background-color: rgba(0, 0, 0, 0.9);
 }
 
 .modal__content {
-    border: 5px solid #ff5a01;
+    border: 5px solid var(--main-color);
     border-radius: 5px;
     position: relative;
     min-width: 600px;
@@ -704,7 +760,7 @@ main {
 
 .modal__link-wrapper {
     padding-top: 15px;
-    color: #ff5a01;
+    color: var(--main-color);
 }
 
 .modal__link {
@@ -713,7 +769,7 @@ main {
 }
 
 .modal__link:hover {
-    color: #ff5a01;
+    color: var(--main-color);
 }
 
 .original__header {
@@ -751,7 +807,7 @@ main {
     -webkit-transform: rotate(0deg);
     -ms-transform: rotate(0deg);
     transform: rotate(0deg);
-    background-color: #ff5a01;
+    background-color: var(--main-color);
     -webkit-transition: all ease .5s;
     -o-transition: all ease .5s;
     transition: all ease .5s;
@@ -821,6 +877,19 @@ main {
 }
 
 @media (max-width: 794px) {
+
+    .title__cinemax {
+        padding-left: 0;
+    }
+
+    .subtitle__cinemax {
+        padding-left: 5px;
+    }
+
+    .search__form-head {
+        padding-top: 35px;
+    }
+
     .header-flex {
         -ms-flex-wrap: wrap;
         flex-wrap: wrap;
@@ -896,6 +965,11 @@ main {
     .left-menu.openMenu {
         height: 100%;
     }
+
+    .btn-up {
+        bottom: 10px;
+        left: 5px;
+    }
 }
 
 @media (max-width: 400px) {
@@ -906,6 +980,10 @@ main {
 
     .title {
         font-size: 42px;
+    }
+
+    .paginator-container {
+        padding-bottom: 60px;
     }
 
 }
