@@ -175,7 +175,7 @@ button:hover {
 .btn-up {
     border-radius: 15px;
     position: fixed;
-    bottom: 25px;
+    bottom: 40px;
     left: 75px;
     cursor: pointer;
     height: 40px;
@@ -967,8 +967,12 @@ main {
     }
 
     .btn-up {
-        bottom: 10px;
+        bottom: 40px;
         left: 5px;
+    }
+
+    .pagination-btn {
+        width: 180px;
     }
 }
 
@@ -980,6 +984,11 @@ main {
 
     .title {
         font-size: 42px;
+    }
+
+    .btn-up {
+        bottom: 10px;
+        left: 5px;
     }
 
     .paginator-container {
