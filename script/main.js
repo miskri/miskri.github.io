@@ -13,7 +13,8 @@ const leftMenu = document.querySelector(".left-menu"),
     paginator = document.querySelector(".pagination-btn"),
     upBtn = document.querySelector(".btn-up"),
     dropdowns = document.querySelectorAll(".dropdown"),
-    fastSearchBtn = document.querySelector(".btn-fast-search");
+    fastSearchBtn = document.querySelector(".btn-fast-search"),
+    titleWrapper = document.querySelector(".title-wrapper");
 
 // film card elements
 const cardImg = document.querySelector(".card__img"),
@@ -262,4 +263,9 @@ window.addEventListener("beforeunload", () => {
 // move to top of page
 upBtn.addEventListener("click", () => {
     smoothToTop();
+});
+
+// to the start page
+titleWrapper.addEventListener("click", (event) => {
+    document.location.href = "http://miskri.github.io";
 });
