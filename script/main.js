@@ -175,6 +175,8 @@ leftMenu.addEventListener("click", (event) => {
         dbServiceUnit.getNewestMovie().then(cardRendererUnit.renderCards).then(() => {
             outputTextInfo.textContent = "Фильмы, вышедшие недавно:";
         });
+    } else if (target.closest("#home")) {
+        document.location.href = "http://miskri.github.io";
     }
 });
 
