@@ -14,11 +14,7 @@ const leftMenu = document.querySelector(".left-menu"),
     upBtn = document.querySelector(".btn-up"),
     dropdowns = document.querySelectorAll(".dropdown"),
     fastSearchBtn = document.querySelector(".btn-fast-search"),
-    titleWrapper = document.querySelector(".title-wrapper"),
-    detailedSearchBtn = document.querySelector(".btn-detailed-search"),
-    detailedSearchBtnContainer = document.querySelector(".btn-container"),
-    detailedSearchBlock = document.querySelector(".detailed-search"),
-    detailedSearchCancel = document.querySelector(".btn-detailed-search-cancel");
+    titleWrapper = document.querySelector(".title-wrapper");
 
 // film card elements
 const cardImg = document.querySelector(".card__img"),
@@ -73,18 +69,6 @@ function loadDefault() {
 
 loadDefault();
 //========================================================
-
-// show detailed search params on click
-detailedSearchBtn.addEventListener("click", (event) => {
-    detailedSearchBlock.style.display="inherit";
-    detailedSearchBtnContainer.style.display = "none";
-});
-
-// load start page
-detailedSearchCancel.addEventListener("click", (event) => {
-    detailedSearchBlock.style.display="none";
-    detailedSearchBtnContainer.style.display = "flex";
-});
 
 // left bar opening
 hamburger.addEventListener("click", () => {

@@ -120,17 +120,35 @@ button:hover {
     color: white;
 }
 
-.param-btn {
+.main-param-btn {
     margin: 5px;
 }
 
-.params-container {
+.sort-by-param-btn {
+    margin: 5px;
+}
+
+.param-inactive {
+    background-color: #6f4f3d;
+}
+
+.main-params-container {
     min-width: 300px;
     width: 100%;
     display: flex;
     flex-flow: row wrap;
     justify-content: inherit;
 }
+
+.sort-by-params-container {
+    min-width: 300px;
+    width: 100%;
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: inherit;
+}
+
+/*TODO remove duplications*/
 
 .btn-container {
     display: flex;
@@ -153,7 +171,6 @@ button:hover {
 
 .btn-detailed-search-apply {
     border-radius: 15px;
-    background-color: var(--main-color);
     height: 35px;
     width: 120px;
 }

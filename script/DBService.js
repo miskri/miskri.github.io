@@ -21,12 +21,19 @@ const DBService = class {
 
     //=======RESPONSE CONSTRUCTOR=======
 
-    createDetailedResponse = () => {
-
+    createDetailedResponse = (params) => {
+        let result = `${SERVER_PATH}/discover/${params.category}?api_key=${API_KEY}&language=${this.lang}`;
+        if (params.category === "movie") {
+            if (params.sortBy !== "") {
+                result += `&sort_by=${params.sortBy}` + params.sortByType;
+            }
+        }
+        return result;
     }
 
-    getDetailedSearchResultsMovie = async () => {
-
+    getDetailedSearchResultsMovie = async (request) => {
+        console.log(request);
+        return this.getData(request);
     }
 
     getSearchResults = async (query = this.lastQuery, page = 1) => {
