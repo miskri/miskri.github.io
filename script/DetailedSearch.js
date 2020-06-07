@@ -117,7 +117,7 @@ detailedSearchMovieParamSortBy.addEventListener("click", (event) => {
 detailedSearchApply.addEventListener("click", (event) => {
     if (searchCategoryIsMovie) {
         showLoading();
-        outputTextInfo.textContent = "Результаты поиска:";
+        outputTextInfo.textContent = "Результаты точного поиска:";
         dbServiceUnit.getDetailedSearchResultsMovie(dbServiceUnit.createDetailedResponse(movieFilterParams))
             .then(cardRendererUnit.renderCards);
     }

@@ -99,69 +99,101 @@ leftMenu.addEventListener("click", (event) => {
         hamburger.classList.add("open");
     }
 
-    if (target.closest("#trending-day")) {
-        showLoading();
-        smoothToTop();
-        dbServiceUnit.getTrendingDay().then(cardRendererUnit.renderCards).then(() => {
-            outputTextInfo.textContent = "Популярно сегодня:";
-        });
-    } else if (target.closest("#trending-week")) {
-        showLoading();
-        smoothToTop();
-        dbServiceUnit.getTrendingWeek().then(cardRendererUnit.renderCards).then(() => {
-            outputTextInfo.textContent = "Популярно на этой неделе:";
-        });
-    } else if (target.closest("#top-rated-tv")) {
-        showLoading();
-        smoothToTop();
-        dbServiceUnit.getTopRatedTv().then(cardRendererUnit.renderCards).then(() => {
-            outputTextInfo.textContent = "Самые оцененные сериалы и шоу:";
-        });
-    } else if (target.closest("#popular-tv")) {
-        showLoading();
-        smoothToTop();
-        dbServiceUnit.getPopularTv().then(cardRendererUnit.renderCards).then(() => {
-            outputTextInfo.textContent = "Популярные сейчас сериалы и шоу:";
-        });
-    } else if (target.closest("#week-tv")) {
-        showLoading();
-        smoothToTop();
-        dbServiceUnit.getWeekTv().then(cardRendererUnit.renderCards).then(() => {
-            outputTextInfo.textContent = "Сериалы и шоу на этой неделе:";
-        });
-    } else if (target.closest("#today-tv")) {
-        showLoading();
-        smoothToTop();
-        dbServiceUnit.getTodayTv().then(cardRendererUnit.renderCards).then(() => {
-            outputTextInfo.textContent = "Сериалы и шоу на сегодня:";
-        });
-    } else if (target.closest("#top-rated-movie")) {
-        showLoading();
-        smoothToTop();
-        dbServiceUnit.getTopRatedMovie().then(cardRendererUnit.renderCards).then(() => {
-            outputTextInfo.textContent = "Самые оцененные фильмы:";
-        });
-    } else if (target.closest("#popular-movie")) {
-        showLoading();
-        smoothToTop();
-        dbServiceUnit.getPopularMovie().then(cardRendererUnit.renderCards).then(() => {
-            outputTextInfo.textContent = "Популярные сейчас фильмы:";
-        });
-    } else if (target.closest("#newest-movie")) {
-        showLoading();
-        smoothToTop();
-        dbServiceUnit.getNowPlayingMovie().then(cardRendererUnit.renderCards).then(() => {
-            outputTextInfo.textContent = "Сейчас в кинотеатрах:";
-        });
-    } else if (target.closest("#now-playing-movie")) {
-        showLoading();
-        smoothToTop();
-        dbServiceUnit.getNewestMovie().then(cardRendererUnit.renderCards).then(() => {
-            outputTextInfo.textContent = "Фильмы, вышедшие недавно:";
-        });
-    } else if (target.closest("#home")) {
+    let tabId = target.id;
+    const tabChild = target.closest(".span-text");
+    if (tabChild) {
+        tabId = tabChild.parentElement.id;
+    }
+
+    switch (tabId) {
+        case "trending-day":
+            showLoading();
+            smoothToTop();
+            dbServiceUnit.getTrendingDay().then(cardRendererUnit.renderCards).then(() => {
+                outputTextInfo.textContent = "Популярно сегодня:";
+            });
+            break;
+
+        case "trending-week":
+            showLoading();
+            smoothToTop();
+            dbServiceUnit.getTrendingWeek().then(cardRendererUnit.renderCards).then(() => {
+                outputTextInfo.textContent = "Популярно на этой неделе:";
+            });
+            break;
+
+        case "top-rated-tv":
+            showLoading();
+            smoothToTop();
+            dbServiceUnit.getTopRatedTv().then(cardRendererUnit.renderCards).then(() => {
+                outputTextInfo.textContent = "Самые оцененные сериалы и шоу:";
+            });
+            break;
+
+        case "popular-tv":
+            showLoading();
+            smoothToTop();
+            dbServiceUnit.getPopularTv().then(cardRendererUnit.renderCards).then(() => {
+                outputTextInfo.textContent = "Популярные сейчас сериалы и шоу:";
+            });
+            break;
+
+        case "week-tv":
+            showLoading();
+            smoothToTop();
+            dbServiceUnit.getWeekTv().then(cardRendererUnit.renderCards).then(() => {
+                outputTextInfo.textContent = "Сериалы и шоу на этой неделе:";
+            });
+            break;
+
+        case "today-tv":
+            showLoading();
+            smoothToTop();
+            dbServiceUnit.getTodayTv().then(cardRendererUnit.renderCards).then(() => {
+                outputTextInfo.textContent = "Сериалы и шоу на сегодня:";
+            });
+            break;
+
+        case "top-rated-movie":
+            showLoading();
+            smoothToTop();
+            dbServiceUnit.getTopRatedMovie().then(cardRendererUnit.renderCards).then(() => {
+                outputTextInfo.textContent = "Самые оцененные фильмы:";
+            });
+            break;
+
+        case "popular-movie":
+            showLoading();
+            smoothToTop();
+            dbServiceUnit.getPopularMovie().then(cardRendererUnit.renderCards).then(() => {
+                outputTextInfo.textContent = "Популярные сейчас фильмы:";
+            });
+            break;
+
+        case "newest-movie":
+            showLoading();
+            smoothToTop();
+            dbServiceUnit.getNowPlayingMovie().then(cardRendererUnit.renderCards).then(() => {
+                outputTextInfo.textContent = "Сейчас в кинотеатрах:";
+            });
+            break;
+
+        case "now-playing-movie":
+            showLoading();
+            smoothToTop();
+            dbServiceUnit.getNewestMovie().then(cardRendererUnit.renderCards).then(() => {
+                outputTextInfo.textContent = "Фильмы, вышедшие недавно:";
+            });
+            break;
+
+        default:
+            break;
+    }
+
+    if (target.closest("#home")) {
         document.location.href = "http://miskri.github.io";
     }
+
 });
 
 // film card image changing
