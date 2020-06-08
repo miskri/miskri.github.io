@@ -120,11 +120,7 @@ button:hover {
     color: white;
 }
 
-.main-param-btn {
-    margin: 5px;
-}
-
-.sort-by-param-btn {
+.detailed-search-param-btn {
     margin: 5px;
 }
 
@@ -132,15 +128,7 @@ button:hover {
     background-color: #6f4f3d;
 }
 
-.main-params-container {
-    min-width: 300px;
-    width: 100%;
-    display: flex;
-    flex-flow: row wrap;
-    justify-content: inherit;
-}
-
-.sort-by-params-container {
+.detailed-search-param-container {
     min-width: 300px;
     width: 100%;
     display: flex;

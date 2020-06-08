@@ -69,46 +69,44 @@ function toggleOffParams(object) {
     });
 }
 
+function setMovieSearchParam(target, param, value) {
+    if (movieFilterParams[param] !== value) {
+        movieFilterParams[param] = value;
+        target.classList.remove("param-inactive");
+    } else {
+        movieFilterParams[param] = "";
+    }
+}
+
 // select sort type
 detailedSearchMovieParamSortBy.addEventListener("click", (event) => {
     const target = event.target;
-    if (target.closest(".sort-by-param-btn")) {
+    const sortBlock = target.closest(".sort-by-param-btn");
+    if (sortBlock) {
         toggleOffParams(detailedSearchMovieParamElements);
-        if (target.closest("#popularity")) {
-            if (movieFilterParams.sortBy !== "popularity") {
-                movieFilterParams.sortBy = "popularity";
-                target.classList.remove("param-inactive");
-            } else {
-                movieFilterParams.sortBy = "";
-            }
-        } else if (target.closest("#releaseDate")) {
-            if (movieFilterParams.sortBy !== "release_date") {
-                movieFilterParams.sortBy = "release_date";
-                target.classList.remove("param-inactive");
-            } else {
-                movieFilterParams.sortBy = "";
-            }
-        } else if (target.closest("#originalTitle")) {
-            if (movieFilterParams.sortBy !== "original_title") {
-                movieFilterParams.sortBy = "original_title";
-                target.classList.remove("param-inactive");
-            } else {
-                movieFilterParams.sortBy = "";
-            }
-        } else if (target.closest("#voteAverage")) {
-            if (movieFilterParams.sortBy !== "vote_average") {
-                movieFilterParams.sortBy = "vote_average";
-                target.classList.remove("param-inactive");
-            } else {
-                movieFilterParams.sortBy = "";
-            }
-        } else if (target.closest("#voteCount")) {
-            if (movieFilterParams.sortBy !== "vote_count") {
-                movieFilterParams.sortBy = "vote_count";
-                target.classList.remove("param-inactive");
-            } else {
-                movieFilterParams.sortBy = "";
-            }
+        switch (sortBlock.id) {
+            case "popularity":
+                setMovieSearchParam(target, "sortBy", "popularity");
+                break;
+
+            case "releaseDate":
+                setMovieSearchParam(target, "sortBy", "release_date");
+                break;
+
+            case "originalTitle":
+                setMovieSearchParam(target, "sortBy", "original_title");
+                break;
+
+            case "voteAverage":
+                setMovieSearchParam(target, "sortBy", "vote_average");
+                break;
+
+            case "voteCount":
+                setMovieSearchParam(target, "sortBy", "vote_count");
+                break;
+
+            default:
+                break;
         }
     }
 });

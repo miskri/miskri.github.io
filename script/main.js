@@ -16,7 +16,7 @@ const leftMenu = document.querySelector(".left-menu"),
     fastSearchBtn = document.querySelector(".btn-fast-search"),
     titleWrapper = document.querySelector(".title-wrapper");
 
-// film card elements
+// card elements
 const cardImg = document.querySelector(".card__img"),
     title = document.querySelector(".modal__title"),
     genresList = document.querySelector(".genres-list"),
