@@ -27,13 +27,17 @@ const DBService = class {
             if (params.sortBy !== "") {
                 result += `&sort_by=${params.sortBy}` + params.sortByType;
             }
+            if (params.withGenres.length > 0) {
+                result += params.withGenres ? `&with_genres=` + params.withGenres.join() : "";
+                result += params.withoutGenres ? `&without_genres=` + params.withoutGenres.join() : "";
+            }
         }
         return result;
     }
 
-    getDetailedSearchResultsMovie = async (request) => {
-        console.log(request);
-        return this.getData(request);
+    getDetailedSearchResultsMovie = async (response) => {
+        this.lastResponse = response;
+        return this.getData(this.lastResponse);
     }
 
     getSearchResults = async (query = this.lastQuery, page = 1) => {
@@ -162,9 +166,7 @@ const DBService = class {
     //=======LAST RESPONSE=======
 
     getNextPageFromResponses = page => {
-        if (this.lastResponse === "DETAILED_SEARCH") {
-            // TODO
-        }
+        console.log(this.lastResponse);
         if (this.lastResponse === "SIMPLE_SEARCH") {
             return this.getSearchResults(undefined, page);
         }

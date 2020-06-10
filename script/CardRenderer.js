@@ -32,7 +32,7 @@ const CardRenderer = class {
             paginator.style.visibility = "hidden";
         }
         loading.remove();
-    }
+    };
 
     // card rendering from response
     renderTvCards = (item) => {

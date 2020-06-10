@@ -120,11 +120,15 @@ button:hover {
     color: white;
 }
 
-.main-param-btn {
-    margin: 5px;
+.ds-param {
+    min-width: 300px;
+    width: 100%;
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: inherit;
 }
 
-.sort-by-param-btn {
+.ds-btn {
     margin: 5px;
 }
 
@@ -132,20 +136,8 @@ button:hover {
     background-color: #6f4f3d;
 }
 
-.main-params-container {
-    min-width: 300px;
-    width: 100%;
-    display: flex;
-    flex-flow: row wrap;
-    justify-content: inherit;
-}
-
-.sort-by-params-container {
-    min-width: 300px;
-    width: 100%;
-    display: flex;
-    flex-flow: row wrap;
-    justify-content: inherit;
+.param-inactive:hover {
+    background-color: #a55425;
 }
 
 /*TODO remove duplications*/
