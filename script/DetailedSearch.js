@@ -19,9 +19,16 @@ const detailedSearchBtn = document.querySelector(".btn-detailed-search"),
     detailedSearchMovieParamSortBy = document.querySelector(".sort-by-params-container"),
     detailedSearchMovieParamElements = document.querySelectorAll(".sort-by-param-btn"),
     // genres list
+    detailedSearchMovieGenresShowMoreLess = document.querySelector(".sml-genres");
     detailedSearchMovieGenresBlock = document.querySelector(".genres-container"),
     detailedSearchMovieGenresElements = document.querySelectorAll(".genre-btn"),
-    detailedSearchMovieToggleGenresBtn = document.querySelector(".genres-select-all");
+    detailedSearchMovieToggleGenresBtn = document.querySelector(".genres-select-all"),
+    detailedSearchMovieToggleGenresBlock = document.querySelector(".genres-toggle-container"),
+    // adult content
+    detailedSearchMovieAdultContent = document.querySelector(".adult-content");
+
+const movieGenresArr = [28, 12, 16, 35, 80, 99, 18, 14, 36, 27, 53, 37, 878, 9648, 10751, 10402, 10749, 10770, 10752];
+const tvGenresArr = [];
 
 let searchCategoryIsMovie = true;
 let movieFilterParams = {
@@ -29,14 +36,14 @@ let movieFilterParams = {
     sortBy: "",
     sortByType: "",
     withGenres: [],
-    withoutGenres: [28, 12, 16, 35, 80, 99, 18, 14, 36, 27, 53, 37, 878, 9648, 10751, 10402, 10749, 10770, 10752],
+    withoutGenres: movieGenresArr.slice(),
+    adultContent: false,
 };
 let tvFilterParams = {
     category: "tv",
 };
 
-
-// watch movieGenres.json
+// watch movieGenresArr.json
 const movieGenresIds = {
     "action": 28,
     "adventure": 12,
@@ -73,20 +80,30 @@ switchOffAllParams = () => {
     detailedSearchMovieParamBlock.style.display = "none";
     switchOffMovieParams();
     // TODO switchOffTvParams
-}
+};
 
 switchOffMovieParams = () => {
     toggleOffParams(detailedSearchMovieTypeSortByElements);
     toggleOffParams(detailedSearchMovieParamElements);
     toggleOffParams(detailedSearchMovieGenresElements);
-    detailedSearchMovieToggleGenresBtn.classList.add("param-inactive");
-}
+    detailedSearchMovieGenresBlock.style.display = "none";
+    detailedSearchMovieToggleGenresBlock.style.display = "none";
+    detailedSearchMovieGenresShowMoreLess.textContent = "Показать";
+};
+
+resetMovieParamValues = () => {
+    movieFilterParams.sortBy = "";
+    movieFilterParams.sortByType = "";
+    movieFilterParams.withGenres = [];
+    movieFilterParams.withoutGenres = movieGenresArr.slice();
+    movieFilterParams.adultContent = false;
+};
 
 toggleOffParams = (object) => {
     object.forEach(item => {
         item.classList.add("param-inactive");
     });
-}
+};
 
 setMovieSearchParam = (target, param, value) => {
     if (movieFilterParams[param] !== value) {
@@ -95,7 +112,7 @@ setMovieSearchParam = (target, param, value) => {
     } else {
         movieFilterParams[param] = "";
     }
-}
+};
 
 // if sortBy is not selected sortByCategory is not selected too & default sortByCategory value is desc sorting
 sortCategoryCheck = () => {
@@ -107,13 +124,13 @@ sortCategoryCheck = () => {
         detailedSearchMovieTypeSortByElements[0].classList.add("param-inactive");
         detailedSearchMovieTypeSortByElements[1].classList.add("param-inactive");
     }
-}
+};
 
 genreListChanging = (target, id) => {
     target.classList.toggle("param-inactive");
     let withGenres = movieFilterParams.withGenres;
     let withoutGenres = movieFilterParams.withoutGenres;
-    let genreSwitchBtn = detailedSearchMovieToggleGenresBtn;
+    let toggleGenresBlock = detailedSearchMovieToggleGenresBlock;
     if (withoutGenres.includes(id)) {
         withoutGenres.splice(withoutGenres.indexOf(id), 1);
         withGenres.push(id);
@@ -122,13 +139,13 @@ genreListChanging = (target, id) => {
         withoutGenres.push(id);
     }
 
-    // if selected genres count is zero button "remove all" is not active
+    // if selected genres count is zero button "remove all" is not visible
     if (withGenres.length > 0) {
-        genreSwitchBtn.classList.remove("param-inactive");
+        toggleGenresBlock.style.display = "inherit";
     } else {
-        genreSwitchBtn.classList.add("param-inactive");
+        toggleGenresBlock.style.display = "none";
     }
-}
+};
 
 // show detailed search params on click
 detailedSearchBtn.addEventListener("click", () => {
@@ -141,6 +158,8 @@ detailedSearchCancel.addEventListener("click", () => {
     detailedSearchBlock.style.display = "none";
     detailedSearchBtnContainer.style.display = "flex";
     switchOffAllParams();
+    resetMovieParamValues();
+    // TODO resetTvParamValues
 });
 
 // select search category (movie/tv)
@@ -158,6 +177,7 @@ detailedSearchMainParam.addEventListener("click", (event) => {
         searchCategoryIsMovie = false;
         detailedSearchMovieParamBlock.style.display = "none";
         switchOffMovieParams();
+        resetMovieParamValues();
     }
 });
 
@@ -194,21 +214,30 @@ detailedSearchMovieParamSortBy.addEventListener("click", (event) => {
     }
 });
 
+detailedSearchMovieGenresShowMoreLess.addEventListener("click", () => {
+    let btn = detailedSearchMovieGenresShowMoreLess;
+    let genresBlock = detailedSearchMovieGenresBlock;
+    if (btn.textContent === "Показать") {
+        genresBlock.style.display = "inherit";
+        btn.textContent = "Скрыть";
+    } else {
+        genresBlock.style.display = "none";
+        btn.textContent = "Показать";
+    }
+});
+
 // remove all genres from search list
 detailedSearchMovieToggleGenresBtn.addEventListener("click", () => {
     let withGenres = movieFilterParams.withGenres;
     let withoutGenres = movieFilterParams.withoutGenres;
-    let btn = detailedSearchMovieToggleGenresBtn;
     const withGenresLen = withGenres.length;
-    if (!btn.classList.contains("param-inactive")) {
-        detailedSearchMovieGenresElements.forEach(item => {
-            item.classList.add("param-inactive");
-        });
-        for (let i = 0; i < withGenresLen; i++) {
-            withoutGenres.push(withGenres.pop());
-        }
-        btn.classList.add("param-inactive");
+    detailedSearchMovieGenresElements.forEach(item => {
+        item.classList.add("param-inactive");
+    });
+    for (let i = 0; i < withGenresLen; i++) {
+        withoutGenres.push(withGenres.pop());
     }
+    detailedSearchMovieToggleGenresBlock.style.display = "none";
 });
 
 detailedSearchMovieGenresBlock.addEventListener("click", (event) => {
@@ -217,6 +246,10 @@ detailedSearchMovieGenresBlock.addEventListener("click", (event) => {
     if (genreBtn) {
         genreListChanging(target, movieGenresIds[genreBtn.id]);
     }
+});
+
+detailedSearchMovieAdultContent.addEventListener("input", () => {
+    movieFilterParams.adultContent = !movieFilterParams.adultContent;
 });
 
 // apply search params

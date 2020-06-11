@@ -174,10 +174,8 @@
                     </div>
                     <div class="search-param-elem">
                         <h3 class="param-title">Жанр: </h3>
-                        <div class ="ds-param">
-                            <button class="ds-btn genres-select-all param-inactive">Убрать все</button>
-                        </div>
-                        <div class ="ds-param genres-container">
+                        <button class="show-more-less sml-genres">Показать</button>
+                        <div class ="ds-param genres-container" style="display: none">
                             <button class="ds-btn genre-btn param-inactive" id="action">Боевик</button>
                             <button class="ds-btn genre-btn param-inactive" id="adventure">Приключения</button>
                             <button class="ds-btn genre-btn param-inactive" id="animation">Мультфильм</button>
@@ -198,6 +196,16 @@
                             <button class="ds-btn genre-btn param-inactive" id="war">Военный</button>
                             <button class="ds-btn genre-btn param-inactive" id="western">Вестерн</button>
                         </div>
+                        <div class ="ds-param genres-toggle-container" style="display: none">
+                            <button class="ds-btn genres-select-all">Очистить</button>
+                        </div>
+                    </div>
+                    <div class="search-param-elem adult-content-checkbox">
+                        <h3 class="param-title">Показывать контент для взрослых: </h3>
+                        <label class="switch">
+                            <input type="checkbox" class="adult-content">
+                            <span class="slider round"></span>
+                        </label>
                     </div>
                 </section>
 

@@ -36,11 +36,11 @@ let nextPage = 1;
 
 showLoading = () => {
     cardsList.append(loading);
-}
+};
 
 smoothToTop = () => {
     window.scrollTo({top: 0, behavior: "smooth"});
-}
+};
 
 // get search value, get response for API and then render card if response is correct
 searchForm.addEventListener("submit", (event) => {
@@ -65,7 +65,7 @@ loadDefault = () => {
     dbServiceUnit.getTrendingDay().then(cardRendererUnit.preRenderCards).then(() => {
         outputTextInfo.textContent = "Популярно сегодня:";
     });
-}
+};
 
 loadDefault();
 //========================================================

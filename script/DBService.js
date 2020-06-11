@@ -5,19 +5,19 @@ const DBService = class {
         this.lang = "ru-RU";
         this.lastQuery = "";
         this.lastResults = [];
-    }
+    };
 
     getData = async (url) => {
         return await fetch(url).then(resp => resp.json());
-    }
+    };
 
     getTestData = () => {
         return this.getData("test.json");
-    }
+    };
 
     getTestCard = () => {
         return this.getData("card.json");
-    }
+    };
 
     //=======RESPONSE CONSTRUCTOR=======
 
@@ -31,14 +31,15 @@ const DBService = class {
                 result += params.withGenres ? `&with_genres=` + params.withGenres.join() : "";
                 result += params.withoutGenres ? `&without_genres=` + params.withoutGenres.join() : "";
             }
+            result += "&include_adult=" + params.adultContent;
         }
         return result;
-    }
+    };
 
     getDetailedSearchResultsMovie = async (response) => {
         this.lastResponse = response;
         return this.getData(this.lastResponse);
-    }
+    };
 
     getSearchResults = async (query = this.lastQuery, page = 1) => {
         this.lastResponse = "SIMPLE_SEARCH";
@@ -75,7 +76,7 @@ const DBService = class {
         }
         // console.log(responseFinal); // TODO for testing
         return responseFinal;
-    }
+    };
 
     // result is fixed position, e.g. arr[5] = arr[8] TODO rewrite
     replaceResults = (results) => {
@@ -84,7 +85,7 @@ const DBService = class {
             [results[i], results[len - i]] = [results[len - i], results[i]];
         }
         return results;
-    }
+    };
 
     // result is random position, e.g. arr[5] = arr[9] || arr[5] = arr[17] || ...
     shuffleResults = (results) => {
@@ -95,73 +96,73 @@ const DBService = class {
             results[j] = temp
         }
         return results;
-    }
+    };
 
     //=======TRENDING=======
 
     getTrendingDay = () => {
         this.lastResponse = `${SERVER_PATH}/trending/all/day?api_key=${API_KEY}&language=${this.lang}`;
         return this.getData(this.lastResponse);
-    }
+    };
 
     getTrendingWeek = () => {
         this.lastResponse = `${SERVER_PATH}/trending/all/week?api_key=${API_KEY}&language=${this.lang}`;
         return this.getData(this.lastResponse);
-    }
+    };
 
     //=======TV SHOWS=======
 
     getTopRatedTv = () => {
         this.lastResponse = `${SERVER_PATH}/tv/top_rated?api_key=${API_KEY}&language=${this.lang}`;
         return this.getData(this.lastResponse);
-    }
+    };
 
     getPopularTv = () => {
         this.lastResponse = `${SERVER_PATH}/tv/popular?api_key=${API_KEY}&language=${this.lang}`;
         return this.getData(this.lastResponse);
-    }
+    };
 
     getWeekTv = () => {
         this.lastResponse = `${SERVER_PATH}/tv/on_the_air?api_key=${API_KEY}&language=${this.lang}`;
         return this.getData(this.lastResponse);
-    }
+    };
 
     getTodayTv = () => {
         this.lastResponse = `${SERVER_PATH}/tv/airing_today?api_key=${API_KEY}&language=${this.lang}`;
         return this.getData(this.lastResponse);
-    }
+    };
 
     // tv card info
     getTvCard = id => {
         return this.getData(`${SERVER_PATH}/tv/${id}?api_key=${API_KEY}&language=${this.lang}`);
-    }
+    };
 
     //=======MOVIES=======
 
     getTopRatedMovie = () => {
         this.lastResponse = `${SERVER_PATH}/movie/top_rated?api_key=${API_KEY}&language=${this.lang}`;
         return this.getData(this.lastResponse);
-    }
+    };
 
     getPopularMovie = () => {
         this.lastResponse = `${SERVER_PATH}/movie/popular?api_key=${API_KEY}&language=${this.lang}`;
         return this.getData(this.lastResponse);
-    }
+    };
 
     getNowPlayingMovie = () => {
         this.lastResponse = `${SERVER_PATH}/movie/now_playing?api_key=${API_KEY}&language=${this.lang}`;
         return this.getData(this.lastResponse);
-    }
+    };
 
     getNewestMovie = () => {
         this.lastResponse = `${SERVER_PATH}/movie/upcoming?api_key=${API_KEY}&language=${this.lang}`;
         return this.getData(this.lastResponse);
-    }
+    };
 
     // movie card info
     getMovieCard = id => {
         return this.getData(`${SERVER_PATH}/movie/${id}?api_key=${API_KEY}&language=${this.lang}`);
-    }
+    };
 
     //=======LAST RESPONSE=======
 
@@ -171,5 +172,5 @@ const DBService = class {
             return this.getSearchResults(undefined, page);
         }
         return this.getData(this.lastResponse + `&page=${page}`);
-    }
+    };
 }

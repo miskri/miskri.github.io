@@ -5,7 +5,7 @@ cardInfoRenderer = (card) => {
     } else if (card.classList.contains("movie")) { // movie card rendering
         renderMoreInfo(dbServiceUnit.getMovieCard(card.id));
     }
-}
+};
 
 renderMoreInfo = (promise) => {
     promise.then(response => {
@@ -27,4 +27,4 @@ renderMoreInfo = (promise) => {
         modal.classList.remove("hide");
         loading.remove();
     });
-}
+};
