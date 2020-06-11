@@ -219,9 +219,13 @@ detailedSearchMovieGenresShowMoreLess.addEventListener("click", () => {
     let genresBlock = detailedSearchMovieGenresBlock;
     if (btn.textContent === "Показать") {
         genresBlock.style.display = "inherit";
+        if (movieFilterParams.withGenres.length > 0) {
+            detailedSearchMovieToggleGenresBlock.style.display = "inherit";
+        }
         btn.textContent = "Скрыть";
     } else {
         genresBlock.style.display = "none";
+        detailedSearchMovieToggleGenresBlock.style.display = "none";
         btn.textContent = "Показать";
     }
 });

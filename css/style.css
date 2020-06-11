@@ -116,6 +116,7 @@ button:hover {
 }
 
 .param-title {
+    text-align: center;
     font-family: "Noto Sans", Arial, sans-serif;
     color: white;
 }
