@@ -67,7 +67,7 @@ const movieSortByValues = {
     "voteCount": "vote_count"
 };
 
-function switchOffAllParams() {
+switchOffAllParams = () => {
     detailedSearchMainParamMovie.classList.add("param-inactive");
     detailedSearchMainParamTv.classList.add("param-inactive");
     detailedSearchMovieParamBlock.style.display = "none";
@@ -75,20 +75,20 @@ function switchOffAllParams() {
     // TODO switchOffTvParams
 }
 
-function switchOffMovieParams() {
+switchOffMovieParams = () => {
     toggleOffParams(detailedSearchMovieTypeSortByElements);
     toggleOffParams(detailedSearchMovieParamElements);
     toggleOffParams(detailedSearchMovieGenresElements);
     detailedSearchMovieToggleGenresBtn.classList.add("param-inactive");
 }
 
-function toggleOffParams(object) {
+toggleOffParams = (object) => {
     object.forEach(item => {
         item.classList.add("param-inactive");
     });
 }
 
-function setMovieSearchParam(target, param, value) {
+setMovieSearchParam = (target, param, value) => {
     if (movieFilterParams[param] !== value) {
         movieFilterParams[param] = value;
         target.classList.remove("param-inactive");
@@ -98,7 +98,7 @@ function setMovieSearchParam(target, param, value) {
 }
 
 // if sortBy is not selected sortByCategory is not selected too & default sortByCategory value is desc sorting
-function sortCategoryCheck() {
+sortCategoryCheck = () => {
     if (movieFilterParams.sortBy !== "" && movieFilterParams.sortByType === "") {
         movieFilterParams.sortByType = ".desc";
         detailedSearchMovieTypeSortByElements[0].classList.remove("param-inactive");
@@ -109,7 +109,7 @@ function sortCategoryCheck() {
     }
 }
 
-function genreListChanging(target, id) {
+genreListChanging = (target, id) => {
     target.classList.toggle("param-inactive");
     let withGenres = movieFilterParams.withGenres;
     let withoutGenres = movieFilterParams.withoutGenres;
@@ -214,7 +214,7 @@ detailedSearchMovieToggleGenresBtn.addEventListener("click", () => {
 detailedSearchMovieGenresBlock.addEventListener("click", (event) => {
     const target = event.target;
     const genreBtn = target.closest(".genre-btn");
-    if (genreBtn.id) {
+    if (genreBtn) {
         genreListChanging(target, movieGenresIds[genreBtn.id]);
     }
 });

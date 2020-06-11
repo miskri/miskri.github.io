@@ -1,4 +1,3 @@
-
 cardInfoRenderer = (card) => {
     //tv card info rendering
     if (card.classList.contains("tv")) {

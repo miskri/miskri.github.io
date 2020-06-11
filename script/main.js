@@ -34,11 +34,11 @@ const dbServiceUnit = new DBService();
 
 let nextPage = 1;
 
-function showLoading() {
+showLoading = () => {
     cardsList.append(loading);
 }
 
-function smoothToTop() {
+smoothToTop = () => {
     window.scrollTo({top: 0, behavior: "smooth"});
 }
 
@@ -60,7 +60,7 @@ fastSearchBtn.addEventListener("click", () => {
 
 
 //========================================================
-function loadDefault() {
+loadDefault = () => {
     showLoading()
     dbServiceUnit.getTrendingDay().then(cardRendererUnit.preRenderCards).then(() => {
         outputTextInfo.textContent = "Популярно сегодня:";
