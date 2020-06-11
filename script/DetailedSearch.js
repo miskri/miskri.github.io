@@ -67,48 +67,20 @@ const movieSortByValues = {
     "voteCount": "vote_count"
 };
 
-// show detailed search params on click
-detailedSearchBtn.addEventListener("click", () => {
-    detailedSearchBlock.style.display = "inherit";
-    detailedSearchBtnContainer.style.display = "none";
-});
-
-// hide detailed search
-detailedSearchCancel.addEventListener("click", () => {
-    detailedSearchBlock.style.display = "none";
-    detailedSearchBtnContainer.style.display = "flex";
-
-    // TODO func
+function switchOffAllParams() {
     detailedSearchMainParamMovie.classList.add("param-inactive");
     detailedSearchMainParamTv.classList.add("param-inactive");
     detailedSearchMovieParamBlock.style.display = "none";
+    switchOffMovieParams();
+    // TODO switchOffTvParams
+}
+
+function switchOffMovieParams() {
     toggleOffParams(detailedSearchMovieTypeSortByElements);
     toggleOffParams(detailedSearchMovieParamElements);
     toggleOffParams(detailedSearchMovieGenresElements);
     detailedSearchMovieToggleGenresBtn.classList.add("param-inactive");
-});
-
-// select search category (movie/tv)
-detailedSearchMainParam.addEventListener("click", (event) => {
-    const target = event.target;
-    if (target.closest("#movieFilter")) {
-        target.classList.remove("param-inactive");
-        detailedSearchMainParamTv.classList.add("param-inactive");
-        searchCategoryIsMovie = true;
-        detailedSearchMovieParamBlock.style.display = "inherit";
-    } else if (target.closest("#tvFilter")) {
-        target.classList.remove("param-inactive");
-        detailedSearchMainParamMovie.classList.add("param-inactive");
-        searchCategoryIsMovie = false;
-        detailedSearchMovieParamBlock.style.display = "none";
-        // TODO use func!
-        toggleOffParams(detailedSearchMovieTypeSortByElements);
-        toggleOffParams(detailedSearchMovieParamElements);
-        toggleOffParams(detailedSearchMovieGenresElements);
-        detailedSearchMovieToggleGenresBtn.classList.add("param-inactive");
-    }
-});
-
+}
 
 function toggleOffParams(object) {
     object.forEach(item => {
@@ -158,16 +130,56 @@ function genreListChanging(target, id) {
     }
 }
 
+// show detailed search params on click
+detailedSearchBtn.addEventListener("click", () => {
+    detailedSearchBlock.style.display = "inherit";
+    detailedSearchBtnContainer.style.display = "none";
+});
+
+// hide detailed search
+detailedSearchCancel.addEventListener("click", () => {
+    detailedSearchBlock.style.display = "none";
+    detailedSearchBtnContainer.style.display = "flex";
+    switchOffAllParams();
+});
+
+// select search category (movie/tv)
+detailedSearchMainParam.addEventListener("click", (event) => {
+    const target = event.target;
+    if (target.closest("#movieFilter")) {
+        target.classList.remove("param-inactive");
+        detailedSearchMainParamTv.classList.add("param-inactive");
+        searchCategoryIsMovie = true;
+        detailedSearchMovieParamBlock.style.display = "inherit";
+        // TODO switchOffTvParams
+    } else if (target.closest("#tvFilter")) {
+        target.classList.remove("param-inactive");
+        detailedSearchMainParamMovie.classList.add("param-inactive");
+        searchCategoryIsMovie = false;
+        detailedSearchMovieParamBlock.style.display = "none";
+        switchOffMovieParams();
+    }
+});
+
+
 detailedSearchMovieTypeSortBy.addEventListener("click", (event) => {
     const target = event.target;
     if (target.closest("#ascending")) {
         target.classList.remove("param-inactive");
         detailedSearchMovieTypeSortByElements[0].classList.add("param-inactive");
         movieFilterParams.sortByType = ".asc";
+        if (movieFilterParams.sortBy === "") {
+            const originalTitle = detailedSearchMovieParamElements[2];
+            setMovieSearchParam(originalTitle, "sortBy", movieSortByValues["originalTitle"]);
+        }
     } else if (target.closest("#descending")) {
         target.classList.remove("param-inactive");
         detailedSearchMovieTypeSortByElements[1].classList.add("param-inactive");
         movieFilterParams.sortByType = ".desc";
+        if (movieFilterParams.sortBy === "") {
+            const popularity = detailedSearchMovieParamElements[0];
+            setMovieSearchParam(popularity, "sortBy", movieSortByValues["popularity"]);
+        }
     }
 });
 
@@ -213,6 +225,6 @@ detailedSearchApply.addEventListener("click", () => {
         showLoading();
         outputTextInfo.textContent = "Результаты точного поиска:";
         dbServiceUnit.getDetailedSearchResultsMovie(dbServiceUnit.createDetailedResponse(movieFilterParams))
-            .then(cardRendererUnit.renderCards);
+            .then(cardRendererUnit.preRenderCards);
     }
 });

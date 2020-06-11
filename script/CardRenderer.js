@@ -1,6 +1,6 @@
 const CardRenderer = class {
 
-    renderCards = (response) => {
+    preRenderCards = (response) => {
         if (response.total_results === 0) {
             cardsList.textContent = "";
             if (response.hasOwnProperty("errors")) {
@@ -14,14 +14,8 @@ const CardRenderer = class {
             if (response.page === 1) {
                 cardsList.textContent = "";
             }
-
             response.results.forEach(item => {
-                // movie card does not contains name field
-                if (item.hasOwnProperty("name")) {
-                    this.renderTvCards(item);
-                } else {
-                    this.renderMovieCards(item);
-                }
+                this.renderCard(item);
             });
         }
         // pagination
@@ -35,13 +29,15 @@ const CardRenderer = class {
     };
 
     // card rendering from response
-    renderTvCards = (item) => {
+    renderCard = (item) => {
         const card = document.createElement("li");
         card.uniqId = item.id;
         card.classList.add("cards__item");
-
+        // movie card does not contains name field
+        const title = item.name ? item.name : item.title;
+        const cardClass = item.name ? "card tv" : "card movie";
+        const cardType = item.name ? "Сериал & Шоу" : "Кинофильм";
         const {
-            name: filmName,
             poster_path: poster,
             backdrop_path: backdrop,
             vote_average: vote
@@ -52,47 +48,16 @@ const CardRenderer = class {
         const voteValue = vote ? `<span class="card__vote">${vote}</span>` : "";
 
         card.innerHTML = `
-        <a href="#" id="${card.uniqId}" class="card tv">
+        <a href="#" id="${card.uniqId}" class="${cardClass}">
             ${voteValue}
-            <span class="card__type">Сериал & Шоу</span>
+            <span class="card__type">${cardType}</span>
             <img class="card__img"
                 src="${posterIMG}"
                 data-backdrop="${backdropIMG}"
-                alt="${filmName}">
-            <h4 class="card__head">${filmName}</h4> 
+                alt="${title}">
+            <h4 class="card__head">${title}</h4> 
         </a>
         `;
         cardsList.append(card);
-    };
-
-    renderMovieCards = (item) => {
-        const card = document.createElement("li");
-        card.uniqId = item.id;
-        card.classList.add("cards__item");
-
-        const {
-            title: filmName,
-            poster_path: poster,
-            backdrop_path: backdrop,
-            vote_average: vote
-        } = item;
-
-        const posterIMG = poster ? IMAGE_URL + poster : "img/no-poster.jpg";
-        const backdropIMG = backdrop ? IMAGE_URL + backdrop : "img/no-poster.jpg";
-        const voteValue = vote ? `<span class="card__vote">${vote}</span>` : "";
-
-        card.innerHTML = `
-        <a href="#" id="${card.uniqId}" class="card movie">
-            ${voteValue}
-            <span class="card__type">Кинофильм</span>
-            <img class="card__img"
-                src="${posterIMG}"
-                data-backdrop="${backdropIMG}"
-                alt="${filmName}">
-            <h4 class="card__head">${filmName}</h4> 
-        </a>
-        `;
-        cardsList.append(card);
-    };
-
+    }
 }
