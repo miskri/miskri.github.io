@@ -32,6 +32,9 @@ const DBService = class {
                 result += params.withoutGenres ? `&without_genres=` + params.withoutGenres.join() : "";
             }
             result += "&include_adult=" + params.adultContent;
+            if (params.voteCount !== -1) {
+                result += `&vote_count${params.voteCountType}=` + params.voteCount;
+            }
         }
         return result;
     };

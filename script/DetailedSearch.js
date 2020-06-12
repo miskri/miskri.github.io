@@ -19,13 +19,17 @@ const detailedSearchBtn = document.querySelector(".btn-detailed-search"),
     detailedSearchMovieParamSortBy = document.querySelector(".sort-by-params-container"),
     detailedSearchMovieParamElements = document.querySelectorAll(".sort-by-param-btn"),
     // genres list
-    detailedSearchMovieGenresShowMoreLess = document.querySelector(".sml-genres");
+    detailedSearchMovieGenresShowMoreLess = document.querySelector(".sml-genres"),
     detailedSearchMovieGenresBlock = document.querySelector(".genres-container"),
     detailedSearchMovieGenresElements = document.querySelectorAll(".genre-btn"),
     detailedSearchMovieToggleGenresBtn = document.querySelector(".genres-select-all"),
     detailedSearchMovieToggleGenresBlock = document.querySelector(".genres-toggle-container"),
     // adult content
-    detailedSearchMovieAdultContent = document.querySelector(".adult-content");
+    detailedSearchMovieAdultContent = document.querySelector(".adult-content"),
+    // min/max vote count
+    detailedSearchMovieMinMaxVoteCountContainer = document.querySelector(".vote-min-max-container"),
+    detailedSearchMovieMinMaxVoteCountElements = document.querySelectorAll(".vote-count-btn"),
+    detailedSearchMovieMinMaxInput = document.querySelector(".vote-min-max-input");
 
 const movieGenresArr = [28, 12, 16, 35, 80, 99, 18, 14, 36, 27, 53, 37, 878, 9648, 10751, 10402, 10749, 10770, 10752];
 const tvGenresArr = [];
@@ -38,6 +42,8 @@ let movieFilterParams = {
     withGenres: [],
     withoutGenres: movieGenresArr.slice(),
     adultContent: false,
+    voteCount: -1,
+    voteCountType: "",
 };
 let tvFilterParams = {
     category: "tv",
@@ -89,6 +95,8 @@ switchOffMovieParams = () => {
     detailedSearchMovieGenresBlock.style.display = "none";
     detailedSearchMovieToggleGenresBlock.style.display = "none";
     detailedSearchMovieGenresShowMoreLess.textContent = "Показать";
+    toggleOffParams(detailedSearchMovieMinMaxVoteCountElements);
+    detailedSearchMovieMinMaxInput.value = "";
 };
 
 resetMovieParamValues = () => {
@@ -97,6 +105,8 @@ resetMovieParamValues = () => {
     movieFilterParams.withGenres = [];
     movieFilterParams.withoutGenres = movieGenresArr.slice();
     movieFilterParams.adultContent = false;
+    movieFilterParams.voteCount = -1;
+    movieFilterParams.voteCountType = "";
 };
 
 toggleOffParams = (object) => {
@@ -254,6 +264,51 @@ detailedSearchMovieGenresBlock.addEventListener("click", (event) => {
 
 detailedSearchMovieAdultContent.addEventListener("input", () => {
     movieFilterParams.adultContent = !movieFilterParams.adultContent;
+});
+
+detailedSearchMovieMinMaxVoteCountContainer.addEventListener("click", (event) => {
+    const target = event.target;
+    const sortTypeBtn = target.closest(".vote-count-btn");
+    let btnMin = detailedSearchMovieMinMaxVoteCountElements[0];
+    let btnMax = detailedSearchMovieMinMaxVoteCountElements[1];
+    let inputForm = detailedSearchMovieMinMaxInput;
+    if (sortTypeBtn) {
+        if (sortTypeBtn.id === "min") {
+            btnMin.classList.remove("param-inactive");
+            btnMax.classList.add("param-inactive");
+            movieFilterParams.voteCountType = ".gte";
+            if (movieFilterParams.voteCount === -1) {
+                inputForm.value = "50";
+                movieFilterParams.voteCount = 50;
+            }
+        } else {
+            btnMin.classList.add("param-inactive");
+            btnMax.classList.remove("param-inactive");
+            movieFilterParams.voteCountType = ".lte";
+            if (movieFilterParams.voteCount === -1) {
+                inputForm.value = "50";
+                movieFilterParams.voteCount = 50;
+            }
+        }
+    }
+});
+
+detailedSearchMovieMinMaxInput.addEventListener("change", () => {
+    const inputValue = detailedSearchMovieMinMaxInput.value;
+    let btnMin = detailedSearchMovieMinMaxVoteCountElements[0];
+    let btnMax = detailedSearchMovieMinMaxVoteCountElements[1];
+    if (inputValue) {
+        movieFilterParams.voteCount = inputValue;
+        if (movieFilterParams.voteCountType === "") {
+            btnMin.classList.remove("param-inactive");
+            movieFilterParams.voteCountType = ".gte";
+        }
+    } else {
+        movieFilterParams.voteCount = -1;
+        movieFilterParams.voteCountType = "";
+        btnMin.classList.add("param-inactive");
+        btnMax.classList.add("param-inactive");
+    }
 });
 
 // apply search params
