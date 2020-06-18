@@ -197,21 +197,44 @@
                             <button class="ds-btn genres-select-all">Очистить</button>
                         </div>
                     </div>
+                    <div class="search-param-elem">
+                        <h3 class="param-title">Количество голосов: </h3>
+                        <div class ="ds-param vote-min-max-container">
+                            <input type="number" class="ds-input vote-min-max-input" id="voteCountInput"
+                                   placeholder="Число" step="50" min="0" max="99950" value="">
+                        </div>
+                        <div class ="ds-param">
+                            <button class="ds-btn vote-count-btn param-inactive">Не меньше</button>
+                        </div>
+                    </div>
+                    <div class="search-param-elem">
+                        <h3 class="param-title">Средняя оценка: </h3>
+                        <div class ="ds-param vote-average-container">
+                            <input type="number" class="ds-input vote-average-input" id="voteAverageInput"
+                                   placeholder="Оценка" step="0.1" min="0" max="10" value="">
+                            <div class ="ds-param">
+                                <button class="ds-btn vote-average-btn param-inactive">Не меньше</button>
+                            </div>
+                        </div>
+                    </div>
+<!--                    <div class="search-param-elem">-->
+<!--                        <h3 class="param-title">Продолжительность: </h3>-->
+<!--                        <div class ="ds-param runtime-container">-->
+<!--                            <input type="number" class="ds-input runtime-hours-input" id="runtimeHoursInput"-->
+<!--                                   placeholder="Часы" step="1" min="0" max="18000" value="">-->
+<!--                            <input type="number" class="ds-input runtime-minutes-input" id="runtimeMinutesInput"-->
+<!--                                   placeholder="Минуты" step="1" min="0" max="59" value="">-->
+<!--                            <div class ="ds-param">-->
+<!--                                <button class="ds-btn runtime-btn param-inactive">Не больше</button>-->
+<!--                            </div>-->
+<!--                        </div>-->
+<!--                    </div>-->
                     <div class="search-param-elem adult-content-checkbox">
                         <h3 class="param-title">Показывать контент для взрослых: </h3>
                         <label class="switch">
                             <input type="checkbox" class="adult-content">
                             <span class="slider round"></span>
                         </label>
-                    </div>
-                    <div class="search-param-elem">
-                        <h3 class="param-title">Количество голосов: </h3>
-                        <div class ="ds-param vote-min-max-container">
-                            <button class="ds-btn vote-count-btn param-inactive" id="min">Не менее</button>
-                            <input type="number" class="vote-min-max-input" id="voteCountInput"
-                                   placeholder="Число" step="50" min="0" max="99950" value="">
-                            <button class="ds-btn vote-count-btn param-inactive" id="max">Не более</button>
-                        </div>
                     </div>
                 </section>
 

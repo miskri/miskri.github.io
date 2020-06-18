@@ -35,12 +35,16 @@ const DBService = class {
             if (params.voteCount !== -1) {
                 result += `&vote_count${params.voteCountType}=` + params.voteCount;
             }
+            if (params.voteAverage !== -1) {
+                result += `&vote_average${params.voteAverageType}=` + params.voteAverage;
+            }
         }
         return result;
     };
 
     getDetailedSearchResultsMovie = async (response) => {
         this.lastResponse = response;
+        console.log(this.lastResponse);
         return this.getData(this.lastResponse);
     };
 

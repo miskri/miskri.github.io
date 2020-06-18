@@ -11,7 +11,7 @@ renderMoreInfo = (promise) => {
     promise.then(response => {
         cardImg.src = IMAGE_URL + response.poster_path;
         cardImg.alt = response.name ? response.name : response.title;
-        title.textContent = response.name;
+        title.textContent = response.name ? response.name : response.title;
         genresList.textContent = "";
         for (const item of response.genres) {
             const genreName = item.name.charAt(0).toUpperCase() + item.name.slice(1);
