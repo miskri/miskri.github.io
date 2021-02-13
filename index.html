@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="ru">
+<html lang="en">
 
 <head>
     <meta charset="UTF-8">
@@ -32,43 +32,43 @@
         <li>
             <a href="#" id="home">
                 <i class="fa fa-home" aria-hidden="true"></i>
-                <span class="span-title">НА ГЛАВНУЮ</span>
+                <span class="span-title">MAIN PAGE</span>
             </a>
         </li>
         <li>
             <a href="#" class="dropdown">
                 <i class="fa fa-trophy" aria-hidden="true"></i>
-                <span class="span-title">РЕЙТИНГ</span>
+                <span class="span-title">RATING</span>
             </a>
             <ul class="dropdown-list">
                 <li>
                     <a href="#" id="trending-day">
-                        <span class="span-text">Популярно сегодня</span>
+                        <span class="span-text">Popular today</span>
                     </a>
                 </li>
                 <li>
                     <a href="#" id="trending-week">
-                        <span class="span-text">Популярно на этой неделе</span>
+                        <span class="span-text">Popular this week</span>
                     </a>
                 </li>
                 <li>
                     <a href="#" id="top-rated-movie">
-                        <span class="span-text">Топ фильмов</span>
+                        <span class="span-text">Top movies</span>
                     </a>
                 </li>
                 <li>
                     <a href="#" id="popular-movie">
-                        <span class="span-text">Популярные фильмы</span>
+                        <span class="span-text">Popular movies</span>
                     </a>
                 </li>
                 <li>
                     <a href="#" id="top-rated-tv">
-                        <span class="span-text">Топ сериалов и шоу</span>
+                        <span class="span-text">Top TV series & shows</span>
                     </a>
                 </li>
                 <li>
                     <a href="#" id="popular-tv">
-                        <span class="span-text">Популярные сериалы и шоу</span>
+                        <span class="span-text">Popular TV series & shows</span>
                     </a>
                 </li>
 
@@ -77,17 +77,17 @@
         <li>
             <a href="#" class="dropdown">
                 <i class="fa fa-film" aria-hidden="true"></i>
-                <span class="span-title">ФИЛЬМЫ</span>
+                <span class="span-title">MOVIES</span>
             </a>
             <ul class="dropdown-list">
                 <li>
                     <a href="#" id="now-playing-movie">
-                        <span class="span-text">Новейшие</span>
+                        <span class="span-text">Newest</span>
                     </a>
                 </li>
                 <li>
                     <a href="#" id="newest-movie">
-                        <span class="span-text">Сейчас на экранах</span>
+                        <span class="span-text">Now on screens</span>
                     </a>
                 </li>
             </ul>
@@ -95,17 +95,17 @@
         <li>
             <a href="#" class="dropdown">
                 <i class="fa fa-tv" aria-hidden="true"></i>
-                <span class="span-title">СЕРИАЛЫ И ШОУ</span>
+                <span class="span-title">TV SERIES & SHOWS</span>
             </a>
             <ul class="dropdown-list">
                 <li>
                     <a href="#" id="today-tv">
-                        <span class="span-text">Сегодня</span>
+                        <span class="span-text">Today</span>
                     </a>
                 </li>
                 <li>
                     <a href="#" id="week-tv">
-                        <span class="span-text">На неделю</span>
+                        <span class="span-text">For a week</span>
                     </a>
                 </li>
             </ul>
@@ -122,10 +122,10 @@
         </hgroup>
 
         <section class="search">
-            <h2 class="search__form-head">Быстрый поиск</h2>
+            <h2 class="search__form-head">Fast search</h2>
             <form class="search__form">
                 <input type="text" class="search__form-input" id="searchText"
-                       placeholder="Введите название...">
+                       placeholder="Enter the title...">
                 <button class="btn-fast-search" type="submit">
                     <i class="fa fa-search" aria-hidden="true"></i>
                 </button>
@@ -138,43 +138,148 @@
 <main>
     <div class="container">
         <div class="btn-container">
-            <button class="btn-detailed-search">Подробный поиск</button>
+            <button class="btn-detailed-search">Detailed search</button>
         </div>
+
         <section class="detailed-search" style="display: none">
             <div class="btn-container-search">
-                <button class="btn-detailed-search-cancel">Отмена</button>
+                <button class="btn-detailed-search-cancel">Cancel</button>
             </div>
             <div class="search-param-container">
                 <div class="search-param-elem">
-                    <h3 class="param-title">Категория поиска: </h3>
-                    <div class ="detailed-search-param-container main-params-container">
-                        <button class="detailed-search-param-btn main-param-btn param-inactive" id="movieFilter">Фильмы</button>
-                        <button class="detailed-search-param-btn main-param-btn param-inactive" id="tvFilter">Сериалы & Шоу</button>
+                    <h3 class="param-title">Search category: </h3>
+                    <div class="ds-param main-params-container">
+                        <button class="ds-btn main-param-movie-btn param-inactive" id="movieFilter">Movies</button>
+                        <button class="ds-btn main-param-tv-btn param-inactive" id="tvFilter">TV series & shows</button>
                     </div>
                 </div>
-                <section class="detailed-search-movie-params" style="display: none">
+
+                <section class="tv-message" style="display: none">
                     <div class="search-param-elem">
-                        <h3 class="param-title">Сортировать по: </h3>
-                        <div class ="detailed-search-param-container sort-by-params-container">
-                            <button class="detailed-search-param-btn sort-by-param-btn param-inactive" id="popularity">Популярность</button>
-                            <button class="detailed-search-param-btn sort-by-param-btn param-inactive" id="releaseDate">Дата выхода</button>
-                            <button class="detailed-search-param-btn sort-by-param-btn param-inactive" id="originalTitle">Название</button>
-                            <button class="detailed-search-param-btn sort-by-param-btn param-inactive" id="voteAverage">Оценка</button>
-                            <button class="detailed-search-param-btn sort-by-param-btn param-inactive" id="voteCount">Число голосов</button>
-                        </div>
+                        <h3 class="param-title">Work in progress! (may be not)</h3>
                     </div>
                 </section>
+
+                <section class="detailed-search-movie-params" style="display: none">
+                    <div class="search-param-elem">
+                        <h3 class="param-title">Sort by: </h3>
+                        <div class="ds-param sort-by-type-container">
+                            <button class="ds-btn sort-by-type-btn param-inactive" id="descending">Descending</button>
+                            <button class="ds-btn sort-by-type-btn param-inactive" id="ascending">Ascending
+                            </button>
+                        </div>
+                        <div class="ds-param sort-by-params-container">
+                            <button class="ds-btn sort-by-param-btn param-inactive" id="popularity">Popularity
+                            </button>
+                            <button class="ds-btn sort-by-param-btn param-inactive" id="releaseDate">Release date
+                            </button>
+                            <button class="ds-btn sort-by-param-btn param-inactive" id="originalTitle">Title</button>
+                            <button class="ds-btn sort-by-param-btn param-inactive" id="voteAverage">Rating</button>
+                            <button class="ds-btn sort-by-param-btn param-inactive" id="voteCount">Number of votes
+                            </button>
+                        </div>
+                    </div>
+                    <div class="search-param-elem">
+                        <h3 class="param-title">Genre: </h3>
+                        <button class="show-more-less sml-genres">Show</button>
+                        <div class="ds-param genres-container" style="display: none">
+                            <button class="ds-btn genre-btn param-inactive" id="action">Action</button>
+                            <button class="ds-btn genre-btn param-inactive" id="adventure">Adventure</button>
+                            <button class="ds-btn genre-btn param-inactive" id="animation">Animation</button>
+                            <button class="ds-btn genre-btn param-inactive" id="comedy">Comedy</button>
+                            <button class="ds-btn genre-btn param-inactive" id="crime">Crime</button>
+                            <button class="ds-btn genre-btn param-inactive" id="family">Family</button>
+                            <button class="ds-btn genre-btn param-inactive" id="drama">Drama</button>
+                            <button class="ds-btn genre-btn param-inactive" id="documentary">Documentary</button>
+                            <button class="ds-btn genre-btn param-inactive" id="fantasy">Fantasy</button>
+                            <button class="ds-btn genre-btn param-inactive" id="history">History</button>
+                            <button class="ds-btn genre-btn param-inactive" id="horror">Horror</button>
+                            <button class="ds-btn genre-btn param-inactive" id="music">Music</button>
+                            <button class="ds-btn genre-btn param-inactive" id="mystery">Mystery</button>
+                            <button class="ds-btn genre-btn param-inactive" id="romance">Romance</button>
+                            <button class="ds-btn genre-btn param-inactive" id="science-fiction">Sci-fi</button>
+                            <button class="ds-btn genre-btn param-inactive" id="tv-movie">TV movie</button>
+                            <button class="ds-btn genre-btn param-inactive" id="thriller">Thriller</button>
+                            <button class="ds-btn genre-btn param-inactive" id="war">War</button>
+                            <button class="ds-btn genre-btn param-inactive" id="western">Western</button>
+                        </div>
+                        <div class="ds-param genres-toggle-container" style="display: none">
+                            <button class="ds-btn genres-select-all">Clear</button>
+                        </div>
+                    </div>
+                    <div class="search-param-elem">
+                        <h3 class="param-title">Number of votes: </h3>
+                        <button class="show-more-less sml-vote-count">Show</button>
+                        <div class="ds-param vote-count-from-to-container" style="display: none">
+                            <input type="number" class="ds-input vote-count-from-input" id="voteCountFromInput"
+                                   placeholder="From" step="50" min="0" max="99950" value="">
+                            <input type="number" class="ds-input vote-count-to-input" id="voteCountToInput"
+                                   placeholder="To" step="50" min="0" max="99950" value="">
+                            <div class="ds-param">
+                                <button class="ds-btn vote-count-btn param-inactive">Clear</button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="search-param-elem">
+                        <h3 class="param-title">Average rate: </h3>
+                        <button class="show-more-less sml-vote-average">Show</button>
+                        <div class="ds-param vote-average-container" style="display: none">
+                            <input type="number" class="ds-input vote-average-from-input" id="voteAverageFromInput"
+                                   placeholder="From" step="0.1" min="0" max="10" value="">
+                            <input type="number" class="ds-input vote-average-to-input" id="voteAverageToInput"
+                                   placeholder="To" step="0.1" min="0" max="10" value="">
+                            <div class="ds-param">
+                                <button class="ds-btn vote-average-btn param-inactive">Clear</button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="search-param-elem">
+                        <h3 class="param-title">Duration: </h3>
+                        <button class="show-more-less sml-runtime">Show</button>
+                        <div class="ds-param runtime-container" style="display: none">
+                            <div class="ds-param">
+                                <h3 class="param-small-title">From: </h3>
+                                <input type="number" class="ds-input runtime-from-hours-input"
+                                       id="runtimeFromHoursInput"
+                                       placeholder="Hours" step="1" min="0" max="18000" value="">
+                                <input type="number" class="ds-input runtime-from-minutes-input"
+                                       id="runtimeFromMinutesInput"
+                                       placeholder="Minutes" step="1" min="0" max="59" value="">
+                            </div>
+                            <div class="ds-param">
+                                <h3 class="param-small-title">To: </h3>
+                                <input type="number" class="ds-input runtime-to-hours-input" id="runtimeToHoursInput"
+                                       placeholder="Hours" step="1" min="0" max="18000" value="">
+                                <input type="number" class="ds-input runtime-to-minutes-input"
+                                       id="runtimeToMinutesInput"
+                                       placeholder="Minutes" step="1" min="0" max="59" value="">
+                            </div>
+                            <div class="ds-param">
+                                <button class="ds-btn runtime-btn param-inactive">Очистить</button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="search-param-elem adult-content-checkbox">
+                        <h3 class="param-title">Show adult content: </h3>
+                        <label class="switch">
+                            <input type="checkbox" class="adult-content">
+                            <span class="slider round"></span>
+                        </label>
+                    </div>
+                </section>
+
                 <div class="btn-container-search">
-                    <button class="btn-detailed-search-apply param-inactive" type="submit">Искать</button>
+                    <button class="btn-detailed-search-apply param-inactive" type="submit">Search</button>
                 </div>
             </div>
         </section>
+
         <section class="cards">
             <h3 class="cards__head"></h3>
             <ul class="cards__list"></ul>
         </section>
         <div class="paginator-container">
-            <button style="visibility: hidden" class="pagination-btn">Показать больше</button>
+            <button style="visibility: hidden" class="pagination-btn">Show more</button>
         </div>
     </div>
 </main>
@@ -191,39 +296,48 @@
 
             </div>
         </div>
-
         <article class="modal__description">
             <h2 class="modal__title">
                 Название шоу
             </h2>
 
             <section class="genres">
-                <h3>Жанр:</h3>
+                <h3>Genre:</h3>
                 <ul class="genres-list">
                     <li>Документальный</li>
                     <li>Мелодрама</li>
                     <li>Мультфильм для взрослых</li>
                 </ul>
             </section>
+
             <section>
-                <h3>Рейтинг</h3>
+                <h3>Release date:</h3>
+                <span class="release-date">2010</span>
+            </section>
+
+            <section>
+                <h3>Rating:</h3>
                 <span class="rating">10</span>
             </section>
 
+            <section class="prod-countries">
+                <h3>Production countries:</h3>
+                <ul class="prod-countries-list">
+                    <li>Zimbabwe</li>
+                    <li>Estonia</li>
+                    <li>USA</li>
+                </ul>
+            </section>
 
             <section class="header__info">
-
-
-                <h3 dir="auto">Описание: </h3>
+                <h3 dir="auto">Description: </h3>
                 <div class="overview" dir="auto">
-
                     <p class="description">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Perspiciatis ut
                         vero, commodi quaerat quasi animi nam corporis hic debitis nulla, ullam non. Quia cupiditate
                         quo obcaecati hic. Molestiae, numquam natus!</p>
-
                 </div>
                 <p class="modal__link-wrapper">
-                    <a class="modal__link" href="https://google.com" target="_blanc">Официальная страница</a>
+                    <a class="modal__link" href="https://google.com" target="_blanc">Official page</a>
                 </p>
             </section>
         </article>
@@ -234,11 +348,12 @@
     </div>
 </div>
 
-<button class="btn-up" style="visibility: hidden">Наверх</button>
+<button class="btn-up" style="visibility: hidden">Move up</button>
 
 <script src="script/DBService.js"></script>
 <script src="script/CardRenderer.js"></script>
 <script src="script/DetailedSearch.js"></script>
+<script src="script/InfoRenderer.js"></script>
 <script src="script/main.js"></script>
 
 <script src="https://use.fontawesome.com/c79e2f3459.js"></script>

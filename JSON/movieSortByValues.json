@@ -1,0 +1,7 @@
+{
+  "popularity": "popularity",
+  "releaseDate": "primary_release_date",
+  "originalTitle": "original_title",
+  "voteAverage": "vote_average",
+  "voteCount": "vote_count"
+}

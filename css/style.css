@@ -6,8 +6,7 @@
 */
 
 :root {
-    /*--main-color: #ff4800;*/
-    --main-color: #ff5a01;
+    --main-color: #d05614;
 }
 
 @font-face {
@@ -99,7 +98,7 @@ button:focus {
 }
 
 button:hover {
-    background-color: #e14800;
+    background-color: #b34a10;
     border-color: transparent;
 }
 
@@ -116,11 +115,46 @@ button:hover {
 }
 
 .param-title {
+    text-align: center;
     font-family: "Noto Sans", Arial, sans-serif;
     color: white;
 }
 
-.detailed-search-param-btn {
+.param-small-title {
+    font-weight: 600;
+    font-size: 18px;
+    color: #e4e4e4;
+    margin-top: 7px;
+}
+
+.ds-input {
+    text-align: center;
+    margin-left: 3px;
+    margin-right: 3px;
+    margin-top: 4px;
+    outline: none;
+    background-color: #cacaca10;
+    color: white;
+    border: none;
+    width: 80px;
+    height: 30px;
+    border-bottom: 2px solid var(--main-color);
+}
+
+.detailed-search-movie-params {
+    /*padding-top: 5px;*/
+    /*padding-bottom: 5px;*/
+}
+
+.ds-param {
+    min-width: 300px;
+    width: 100%;
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: inherit;
+}
+
+.ds-btn {
     margin: 5px;
 }
 
@@ -128,12 +162,8 @@ button:hover {
     background-color: #6f4f3d;
 }
 
-.detailed-search-param-container {
-    min-width: 300px;
-    width: 100%;
-    display: flex;
-    flex-flow: row wrap;
-    justify-content: inherit;
+.param-inactive:hover {
+    background-color: #a55425;
 }
 
 /*TODO remove duplications*/
@@ -196,6 +226,77 @@ button:hover {
 .span-text {
     font-family: "Noto Sans", Arial, sans-serif;
 }
+
+.show-more-less {
+    border-radius: 0;
+    width: 90px;
+    height: 25px;
+    margin-left: 10px;
+}
+
+/* Rounded slider start */
+
+.switch {
+    margin-left: 7px;
+    position: relative;
+    display: inline-block;
+    width: 45px;
+    height: 25px;
+}
+
+.switch input {
+    opacity: 0;
+    width: 0;
+    height: 0;
+}
+
+.slider {
+    position: absolute;
+    cursor: pointer;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: #807e7e;
+    -webkit-transition: .4s;
+    transition: .4s;
+}
+
+.slider:before {
+    position: absolute;
+    content: "";
+    height: 20px;
+    width: 20px;
+    left: 3px;
+    bottom: 3px;
+    background-color: white;
+    -webkit-transition: .4s;
+    transition: .4s;
+}
+
+input:checked + .slider {
+    background-color: var(--main-color);
+}
+
+input:focus + .slider {
+    box-shadow: 0 0 1px var(--main-color);
+}
+
+input:checked + .slider:before {
+    -webkit-transform: translateX(19px);
+    -ms-transform: translateX(19px);
+    transform: translateX(19px);
+}
+
+.slider.round {
+    border-radius: 34px;
+}
+
+.slider.round:before {
+    border-radius: 50%;
+}
+
+/* Rounded slider end */
 
 .paginator-container {
     display: flex;
@@ -454,13 +555,11 @@ button:hover {
     box-sizing: border-box;
 }
 
-
 .left-menu__list li ul li:hover {
-    background: #cd4100;
+    background: #b14d14;
     -webkit-transition: all .4s;
     -o-transition: all .4s;
     transition: all .4s;
-
 }
 
 .left-menu__list li ul li ul li {
@@ -469,7 +568,7 @@ button:hover {
 }
 
 .left-menu__list li ul li ul li a span {
-    color: #cd4100;
+    color: #ca4f0d;
 }
 
 .left-menu__list li ul li ul li:hover {
@@ -756,7 +855,7 @@ main {
 
 .modal__description {
     overflow-y: auto;
-    max-height: 400px;
+    max-height: 500px;
 }
 
 .modal__description section {
@@ -870,6 +969,19 @@ main {
 
 }
 
+/*REMOVE ARROWS FROM INPUT FIELD*/
+/* Chrome, Safari, Edge, Opera */
+/*input::-webkit-outer-spin-button,*/
+/*input::-webkit-inner-spin-button {*/
+/*    -webkit-appearance: none;*/
+/*    margin: 0;*/
+/*}*/
+
+/* Firefox */
+/*input[type=number] {*/
+/*    -moz-appearance: textfield;*/
+/*}*/
+
 @media (max-width: 1024px) {
     .container {
         padding: 0 60px;
@@ -918,7 +1030,6 @@ main {
         overflow-y: auto;
         max-height: 400px;
         padding: 30px;
-        border-width: 16px;
     }
 
     .modal__description {
@@ -1124,7 +1235,7 @@ main {
 
 .loading {
     position: fixed;
-    background-color: #ff5a01;
+    background-color: var(--main-color);
     width: 12px;
     height: 12px;
     border-radius: 3px;
@@ -1156,7 +1267,7 @@ main {
     90%, 100% {
         -webkit-transform: rotate(720deg) scale(1);
         transform: rotate(720deg) scale(1);
-        background-color: #ff5a01;
+        background-color: var(--main-color);
     }
 }
 
@@ -1177,7 +1288,7 @@ main {
     90%, 100% {
         -webkit-transform: rotate(720deg) scale(1);
         transform: rotate(720deg) scale(1);
-        background-color: #ff5a01;
+        background-color: var(--main-color);
     }
 }
 
@@ -1186,7 +1297,7 @@ main {
     position: absolute;
     width: 100%;
     height: 100%;
-    background-color: #ff5a01;
+    background-color: var(--main-color);
     border-radius: 3px;
 }
 
@@ -1207,7 +1318,7 @@ main {
     70%, 100% {
         -webkit-transform: translate(0, 0) scale(1) rotate(-360deg);
         transform: translate(0, 0) scale(1) rotate(-360deg);
-        background-color: #ff5a01;
+        background-color: var(--main-color);
     }
 }
 
@@ -1220,7 +1331,7 @@ main {
     70%, 100% {
         -webkit-transform: translate(0, 0) scale(1) rotate(-360deg);
         transform: translate(0, 0) scale(1) rotate(-360deg);
-        background-color: #ff5a01;
+        background-color: var(--main-color);
     }
 }
 
@@ -1241,7 +1352,7 @@ div:after {
     70%, 100% {
         -webkit-transform: translate(0, 0) scale(1) rotate(360deg);
         transform: translate(0, 0) scale(1) rotate(360deg);
-        background-color: #ff5a01;
+        background-color: var(--main-color);
     }
 }
 
@@ -1254,6 +1365,6 @@ div:after {
     70%, 100% {
         -webkit-transform: translate(0, 0) scale(1) rotate(360deg);
         transform: translate(0, 0) scale(1) rotate(360deg);
-        background-color: #ff5a01;
+        background-color: var(--main-color);
     }
 }

@@ -20,7 +20,9 @@ const leftMenu = document.querySelector(".left-menu"),
 const cardImg = document.querySelector(".card__img"),
     title = document.querySelector(".modal__title"),
     genresList = document.querySelector(".genres-list"),
+    prodCountriesList = document.querySelector(".prod-countries-list"),
     rating = document.querySelector(".rating"),
+    releaseYear = document.querySelector(".release-date"),
     description = document.querySelector(".description"),
     modalLink = document.querySelector(".modal__link");
 
@@ -34,13 +36,13 @@ const dbServiceUnit = new DBService();
 
 let nextPage = 1;
 
-function showLoading() {
+showLoading = () => {
     cardsList.append(loading);
-}
+};
 
-function smoothToTop() {
+smoothToTop = () => {
     window.scrollTo({top: 0, behavior: "smooth"});
-}
+};
 
 // get search value, get response for API and then render card if response is correct
 searchForm.addEventListener("submit", (event) => {
@@ -50,22 +52,22 @@ searchForm.addEventListener("submit", (event) => {
     if (value) {
         showLoading();
         outputTextInfo.textContent = "Результаты поиска:";
-        dbServiceUnit.getSearchResults(value, undefined).then(cardRendererUnit.renderCards);
+        dbServiceUnit.getSearchResults(value, undefined).then(cardRendererUnit.preRenderCards);
     }
 });
 
-fastSearchBtn.addEventListener("click", (event) => {
+fastSearchBtn.addEventListener("click", () => {
     searchForm.submit = true;
 });
 
 
 //========================================================
-function loadDefault() {
+loadDefault = () => {
     showLoading()
-    dbServiceUnit.getTrendingDay().then(cardRendererUnit.renderCards).then(() => {
-        outputTextInfo.textContent = "Популярно сегодня:";
+    dbServiceUnit.getTrendingDay().then(cardRendererUnit.preRenderCards).then(() => {
+        outputTextInfo.textContent = "Popular today:";
     });
-}
+};
 
 loadDefault();
 //========================================================
@@ -101,99 +103,78 @@ leftMenu.addEventListener("click", (event) => {
 
     let tabId = target.id;
     const tabChild = target.closest(".span-text");
-    if (tabChild) {
-        tabId = tabChild.parentElement.id;
+    if (tabChild) tabId = tabChild.parentElement.id;
+
+    if (tabId) {
+        showLoading();
+        smoothToTop();
+        switch (tabId) {
+            case "trending-day":
+                dbServiceUnit.getTrendingDay().then(cardRendererUnit.preRenderCards).then(() => {
+                    outputTextInfo.textContent = "Popular today:";
+                });
+                break;
+
+            case "trending-week":
+                dbServiceUnit.getTrendingWeek().then(cardRendererUnit.preRenderCards).then(() => {
+                    outputTextInfo.textContent = "Popular this week:";
+                });
+                break;
+
+            case "top-rated-tv":
+                dbServiceUnit.getTopRatedTv().then(cardRendererUnit.preRenderCards).then(() => {
+                    outputTextInfo.textContent = "Most rated TV series and shows:";
+                });
+                break;
+
+            case "popular-tv":
+                dbServiceUnit.getPopularTv().then(cardRendererUnit.preRenderCards).then(() => {
+                    outputTextInfo.textContent = "Popular TV series and shows:";
+                });
+                break;
+
+            case "week-tv":
+                dbServiceUnit.getWeekTv().then(cardRendererUnit.preRenderCards).then(() => {
+                    outputTextInfo.textContent = "TV series and shows this week:";
+                });
+                break;
+
+            case "today-tv":
+                dbServiceUnit.getTodayTv().then(cardRendererUnit.preRenderCards).then(() => {
+                    outputTextInfo.textContent = "TV series and shows for today:";
+                });
+                break;
+
+            case "top-rated-movie":
+                dbServiceUnit.getTopRatedMovie().then(cardRendererUnit.preRenderCards).then(() => {
+                    outputTextInfo.textContent = "Most rated films:";
+                });
+                break;
+
+            case "popular-movie":
+                dbServiceUnit.getPopularMovie().then(cardRendererUnit.preRenderCards).then(() => {
+                    outputTextInfo.textContent = "Popular films now:";
+                });
+                break;
+
+            case "newest-movie":
+                dbServiceUnit.getNowPlayingMovie().then(cardRendererUnit.preRenderCards).then(() => {
+                    outputTextInfo.textContent = "Now in cinemas:";
+                });
+                break;
+
+            case "now-playing-movie":
+                dbServiceUnit.getNewestMovie().then(cardRendererUnit.preRenderCards).then(() => {
+                    outputTextInfo.textContent = "Recently released films:";
+                });
+                break;
+
+            default:
+                break;
+        }
     }
 
-    switch (tabId) {
-        case "trending-day":
-            showLoading();
-            smoothToTop();
-            dbServiceUnit.getTrendingDay().then(cardRendererUnit.renderCards).then(() => {
-                outputTextInfo.textContent = "Популярно сегодня:";
-            });
-            break;
-
-        case "trending-week":
-            showLoading();
-            smoothToTop();
-            dbServiceUnit.getTrendingWeek().then(cardRendererUnit.renderCards).then(() => {
-                outputTextInfo.textContent = "Популярно на этой неделе:";
-            });
-            break;
-
-        case "top-rated-tv":
-            showLoading();
-            smoothToTop();
-            dbServiceUnit.getTopRatedTv().then(cardRendererUnit.renderCards).then(() => {
-                outputTextInfo.textContent = "Самые оцененные сериалы и шоу:";
-            });
-            break;
-
-        case "popular-tv":
-            showLoading();
-            smoothToTop();
-            dbServiceUnit.getPopularTv().then(cardRendererUnit.renderCards).then(() => {
-                outputTextInfo.textContent = "Популярные сейчас сериалы и шоу:";
-            });
-            break;
-
-        case "week-tv":
-            showLoading();
-            smoothToTop();
-            dbServiceUnit.getWeekTv().then(cardRendererUnit.renderCards).then(() => {
-                outputTextInfo.textContent = "Сериалы и шоу на этой неделе:";
-            });
-            break;
-
-        case "today-tv":
-            showLoading();
-            smoothToTop();
-            dbServiceUnit.getTodayTv().then(cardRendererUnit.renderCards).then(() => {
-                outputTextInfo.textContent = "Сериалы и шоу на сегодня:";
-            });
-            break;
-
-        case "top-rated-movie":
-            showLoading();
-            smoothToTop();
-            dbServiceUnit.getTopRatedMovie().then(cardRendererUnit.renderCards).then(() => {
-                outputTextInfo.textContent = "Самые оцененные фильмы:";
-            });
-            break;
-
-        case "popular-movie":
-            showLoading();
-            smoothToTop();
-            dbServiceUnit.getPopularMovie().then(cardRendererUnit.renderCards).then(() => {
-                outputTextInfo.textContent = "Популярные сейчас фильмы:";
-            });
-            break;
-
-        case "newest-movie":
-            showLoading();
-            smoothToTop();
-            dbServiceUnit.getNowPlayingMovie().then(cardRendererUnit.renderCards).then(() => {
-                outputTextInfo.textContent = "Сейчас в кинотеатрах:";
-            });
-            break;
-
-        case "now-playing-movie":
-            showLoading();
-            smoothToTop();
-            dbServiceUnit.getNewestMovie().then(cardRendererUnit.renderCards).then(() => {
-                outputTextInfo.textContent = "Фильмы, вышедшие недавно:";
-            });
-            break;
-
-        default:
-            break;
-    }
-
-    if (target.closest("#home")) {
-        document.location.href = "http://miskri.github.io";
-    }
-
+    if (target.closest("#home")) document.location.href = "http://miskri.github.io";
 });
 
 // film card image changing
@@ -201,9 +182,7 @@ const changeImage = (event) => {
     const card = event.target.closest(".cards__item");
     if (card) {
         const image = card.querySelector(".card__img");
-        if (image.dataset.backdrop) {
-            [image.src, image.dataset.backdrop] = [image.dataset.backdrop, image.src];
-        }
+        if (image.dataset.backdrop) [image.src, image.dataset.backdrop] = [image.dataset.backdrop, image.src];
     }
 };
 
@@ -217,50 +196,7 @@ cardsList.addEventListener("click", (event) => {
     const card = target.closest(".card");
     if (card) {
         card.append(loading);
-        //tv card info rendering
-        if (card.classList.contains("tv")) {
-            dbServiceUnit.getTvCard(card.id)
-                .then(response => {
-                    cardImg.src = IMAGE_URL + response.poster_path;
-                    cardImg.alt = response.name;
-                    title.textContent = response.name;
-                    genresList.textContent = "";
-                    for (const item of response.genres) {
-                        const genreName = item.name.charAt(0).toUpperCase() + item.name.slice(1);
-                        genresList.innerHTML += `<li>${genreName}</li>`;
-                    }
-                    const voteInfo = `${response.vote_average} (на основании ${response.vote_count} голосов)`;
-                    rating.textContent = response.vote_average ? voteInfo : "Нет оценки";
-                    description.textContent = response.overview;
-                    modalLink.href = response.homepage;
-                })
-                .then(() => {
-                    document.body.style.overflow = "hidden";
-                    modal.classList.remove("hide");
-                    loading.remove();
-                });
-        } else if (card.classList.contains("movie")) { // movie card rendering
-            dbServiceUnit.getMovieCard(card.id)
-                .then(response => {
-                    cardImg.src = IMAGE_URL + response.poster_path;
-                    cardImg.alt = response.title;
-                    title.textContent = response.title;
-                    genresList.textContent = "";
-                    for (const item of response.genres) {
-                        const genreName = item.name.charAt(0).toUpperCase() + item.name.slice(1);
-                        genresList.innerHTML += `<li>${genreName}</li>`;
-                    }
-                    const voteInfo = `${response.vote_average} (на основании ${response.vote_count} голосов)`;
-                    rating.textContent = response.vote_average ? voteInfo : "Нет оценки";
-                    description.textContent = response.overview;
-                    modalLink.href = response.homepage;
-                })
-                .then(() => {
-                    document.body.style.overflow = "hidden";
-                    modal.classList.remove("hide");
-                    loading.remove();
-                });
-        }
+        cardInfoRenderer(card);
     }
 });
 
@@ -277,16 +213,13 @@ modal.addEventListener("click", (event) => {
 paginator.addEventListener("click", (event) => {
     event.preventDefault();
     showLoading();
-    dbServiceUnit.getNextPageFromResponses(nextPage).then(cardRendererUnit.renderCards);
+    dbServiceUnit.getNextPageFromResponses(nextPage).then(cardRendererUnit.preRenderCards);
 });
 
 // page position checker for upBtn activating
 window.addEventListener("scroll", () => {
-    if (document.documentElement.scrollTop >= clientHeight) {
-        upBtn.style.visibility = "visible";
-    } else {
-        upBtn.style.visibility = "hidden";
-    }
+    if (document.documentElement.scrollTop >= clientHeight) upBtn.style.visibility = "visible";
+    else upBtn.style.visibility = "hidden";
 });
 
 // move to top after page reloading
@@ -300,6 +233,6 @@ upBtn.addEventListener("click", () => {
 });
 
 // to the start page
-titleWrapper.addEventListener("click", (event) => {
+titleWrapper.addEventListener("click", () => {
     document.location.href = "http://miskri.github.io";
 });
