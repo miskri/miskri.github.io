@@ -20,7 +20,9 @@ const leftMenu = document.querySelector(".left-menu"),
 const cardImg = document.querySelector(".card__img"),
     title = document.querySelector(".modal__title"),
     genresList = document.querySelector(".genres-list"),
+    prodCountriesList = document.querySelector(".prod-countries-list"),
     rating = document.querySelector(".rating"),
+    releaseYear = document.querySelector(".release-date"),
     description = document.querySelector(".description"),
     modalLink = document.querySelector(".modal__link");
 
@@ -63,7 +65,7 @@ fastSearchBtn.addEventListener("click", () => {
 loadDefault = () => {
     showLoading()
     dbServiceUnit.getTrendingDay().then(cardRendererUnit.preRenderCards).then(() => {
-        outputTextInfo.textContent = "Популярно сегодня:";
+        outputTextInfo.textContent = "Popular today:";
     });
 };
 
@@ -101,9 +103,7 @@ leftMenu.addEventListener("click", (event) => {
 
     let tabId = target.id;
     const tabChild = target.closest(".span-text");
-    if (tabChild) {
-        tabId = tabChild.parentElement.id;
-    }
+    if (tabChild) tabId = tabChild.parentElement.id;
 
     if (tabId) {
         showLoading();
@@ -111,61 +111,61 @@ leftMenu.addEventListener("click", (event) => {
         switch (tabId) {
             case "trending-day":
                 dbServiceUnit.getTrendingDay().then(cardRendererUnit.preRenderCards).then(() => {
-                    outputTextInfo.textContent = "Популярно сегодня:";
+                    outputTextInfo.textContent = "Popular today:";
                 });
                 break;
 
             case "trending-week":
                 dbServiceUnit.getTrendingWeek().then(cardRendererUnit.preRenderCards).then(() => {
-                    outputTextInfo.textContent = "Популярно на этой неделе:";
+                    outputTextInfo.textContent = "Popular this week:";
                 });
                 break;
 
             case "top-rated-tv":
                 dbServiceUnit.getTopRatedTv().then(cardRendererUnit.preRenderCards).then(() => {
-                    outputTextInfo.textContent = "Самые оцененные сериалы и шоу:";
+                    outputTextInfo.textContent = "Most rated TV series and shows:";
                 });
                 break;
 
             case "popular-tv":
                 dbServiceUnit.getPopularTv().then(cardRendererUnit.preRenderCards).then(() => {
-                    outputTextInfo.textContent = "Популярные сейчас сериалы и шоу:";
+                    outputTextInfo.textContent = "Popular TV series and shows:";
                 });
                 break;
 
             case "week-tv":
                 dbServiceUnit.getWeekTv().then(cardRendererUnit.preRenderCards).then(() => {
-                    outputTextInfo.textContent = "Сериалы и шоу на этой неделе:";
+                    outputTextInfo.textContent = "TV series and shows this week:";
                 });
                 break;
 
             case "today-tv":
                 dbServiceUnit.getTodayTv().then(cardRendererUnit.preRenderCards).then(() => {
-                    outputTextInfo.textContent = "Сериалы и шоу на сегодня:";
+                    outputTextInfo.textContent = "TV series and shows for today:";
                 });
                 break;
 
             case "top-rated-movie":
                 dbServiceUnit.getTopRatedMovie().then(cardRendererUnit.preRenderCards).then(() => {
-                    outputTextInfo.textContent = "Самые оцененные фильмы:";
+                    outputTextInfo.textContent = "Most rated films:";
                 });
                 break;
 
             case "popular-movie":
                 dbServiceUnit.getPopularMovie().then(cardRendererUnit.preRenderCards).then(() => {
-                    outputTextInfo.textContent = "Популярные сейчас фильмы:";
+                    outputTextInfo.textContent = "Popular films now:";
                 });
                 break;
 
             case "newest-movie":
                 dbServiceUnit.getNowPlayingMovie().then(cardRendererUnit.preRenderCards).then(() => {
-                    outputTextInfo.textContent = "Сейчас в кинотеатрах:";
+                    outputTextInfo.textContent = "Now in cinemas:";
                 });
                 break;
 
             case "now-playing-movie":
                 dbServiceUnit.getNewestMovie().then(cardRendererUnit.preRenderCards).then(() => {
-                    outputTextInfo.textContent = "Фильмы, вышедшие недавно:";
+                    outputTextInfo.textContent = "Recently released films:";
                 });
                 break;
 
@@ -174,10 +174,7 @@ leftMenu.addEventListener("click", (event) => {
         }
     }
 
-    if (target.closest("#home")) {
-        document.location.href = "http://miskri.github.io";
-    }
-
+    if (target.closest("#home")) document.location.href = "http://miskri.github.io";
 });
 
 // film card image changing
@@ -185,9 +182,7 @@ const changeImage = (event) => {
     const card = event.target.closest(".cards__item");
     if (card) {
         const image = card.querySelector(".card__img");
-        if (image.dataset.backdrop) {
-            [image.src, image.dataset.backdrop] = [image.dataset.backdrop, image.src];
-        }
+        if (image.dataset.backdrop) [image.src, image.dataset.backdrop] = [image.dataset.backdrop, image.src];
     }
 };
 
@@ -223,11 +218,8 @@ paginator.addEventListener("click", (event) => {
 
 // page position checker for upBtn activating
 window.addEventListener("scroll", () => {
-    if (document.documentElement.scrollTop >= clientHeight) {
-        upBtn.style.visibility = "visible";
-    } else {
-        upBtn.style.visibility = "hidden";
-    }
+    if (document.documentElement.scrollTop >= clientHeight) upBtn.style.visibility = "visible";
+    else upBtn.style.visibility = "hidden";
 });
 
 // move to top after page reloading

@@ -4,16 +4,14 @@ const CardRenderer = class {
         if (response.total_results === 0) {
             cardsList.textContent = "";
             if (response.hasOwnProperty("errors")) {
-                outputTextInfo.textContent = "Некорректный запрос к API со стороны сервиса. " +
-                    "Пожалуйста, сообщите об ошибке Мишане";
+                outputTextInfo.textContent = "Incorrect request to the API from the service side. " +
+                    "Please report the error to Mishanja.";
             } else {
-                outputTextInfo.textContent = "К сожалению, по вашему запросу ничего не обнаружено";
+                outputTextInfo.textContent = "Sorry, nothing was found for your request";
             }
         } else {
             // clear card list if it is a first page
-            if (response.page === 1) {
-                cardsList.textContent = "";
-            }
+            if (response.page === 1) cardsList.textContent = "";
             response.results.forEach(item => {
                 this.renderCard(item);
             });
@@ -36,7 +34,7 @@ const CardRenderer = class {
         // movie card does not contains name field
         const title = item.name ? item.name : item.title;
         const cardClass = item.name ? "card tv" : "card movie";
-        const cardType = item.name ? "Сериал & Шоу" : "Кинофильм";
+        const cardType = item.name ? "TV series & shows" : "Movie";
         const {
             poster_path: poster,
             backdrop_path: backdrop,

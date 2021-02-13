@@ -2,7 +2,7 @@ const DBService = class {
 
     constructor() {
         // temporary variable
-        this.lang = "ru-RU";
+        this.lang = "en-US";
         this.lastQuery = "";
         this.lastResults = [];
     };
@@ -24,27 +24,40 @@ const DBService = class {
     createDetailedResponse = (params) => {
         let result = `${SERVER_PATH}/discover/${params.category}?api_key=${API_KEY}&language=${this.lang}`;
         if (params.category === "movie") {
-            if (params.sortBy !== "") {
-                result += `&sort_by=${params.sortBy}` + params.sortByType;
-            }
+            if (params.sortBy !== "") result += `&sort_by=${params.sortBy}` + params.sortByType;
             if (params.withGenres.length > 0) {
                 result += params.withGenres ? `&with_genres=` + params.withGenres.join() : "";
                 result += params.withoutGenres ? `&without_genres=` + params.withoutGenres.join() : "";
             }
             result += "&include_adult=" + params.adultContent;
-            if (params.voteCount !== -1) {
-                result += `&vote_count${params.voteCountType}=` + params.voteCount;
+            if (params.voteCountFilter) {
+                if (params.voteCountGte === -1) params.voteCountGte = "0";
+                if (params.voteCountLte === -1) params.voteCountLte = "99950";
+                result += `&vote_count.gte=` + params.voteCountGte + `&vote_count.lte=` + params.voteCountLte;
             }
-            if (params.voteAverage !== -1) {
-                result += `&vote_average${params.voteAverageType}=` + params.voteAverage;
+            if (params.voteAverageFilter) {
+                if (params.voteAverageGte === -1) params.voteAverageGte = "0";
+                if (params.voteAverageLte === -1) params.voteAverageLte = "10";
+                result += `&vote_average.gte=` + params.voteAverageGte + `&vote_average.lte=` + params.voteAverageLte;
+            }
+            if (params.runtimeFilter) {
+                if (params.runtimeHoursGte === -1) params.runtimeHoursGte = 0;
+                if (params.runtimeHoursLte === -1) params.runtimeHoursLte = 0;
+                if (params.runtimeMinutesGte === -1) params.runtimeMinutesGte = 0;
+                if (params.runtimeMinutesLte === -1) params.runtimeMinutesLte = 0;
+                let minutes1 = params.runtimeHoursGte * 60 + params.runtimeMinutesGte;
+                let minutes2 = params.runtimeHoursLte * 60 + params.runtimeMinutesLte;
+                result += `&with_runtime.gte=` + minutes1;
+                result += `&with_runtime.lte=` + minutes2;
             }
         }
+        console.log(result); // TODO remove
         return result;
     };
 
     getDetailedSearchResultsMovie = async (response) => {
         this.lastResponse = response;
-        console.log(this.lastResponse);
+        console.log(this.lastResponse); // TODO for testing
         return this.getData(this.lastResponse);
     };
 
@@ -63,9 +76,7 @@ const DBService = class {
         let itemResultsArray = [];
         responses.forEach(item => {
             if (!item.hasOwnProperty("errors")) {
-                if (item.page > responseFinal.page) {
-                    responseFinal.page = item.page;
-                }
+                if (item.page > responseFinal.page) responseFinal.page = item.page;
                 responseFinal.total_results += item.total_results;
                 itemResultsArray = itemResultsArray.concat(item.results);
             }
@@ -175,9 +186,7 @@ const DBService = class {
 
     getNextPageFromResponses = page => {
         console.log(this.lastResponse);
-        if (this.lastResponse === "SIMPLE_SEARCH") {
-            return this.getSearchResults(undefined, page);
-        }
+        if (this.lastResponse === "SIMPLE_SEARCH") return this.getSearchResults(undefined, page);
         return this.getData(this.lastResponse + `&page=${page}`);
     };
 }
