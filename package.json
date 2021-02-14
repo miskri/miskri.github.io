@@ -1,0 +1,14 @@
+{
+  "name": "cinemax",
+  "version": "1.0.0",
+  "dependencies": {
+    "@babel/runtime": "^7.12.13",
+    "core-js": "^3.8.3"
+  },
+  "scripts": {
+    "babel": "babel"
+  },
+  "devDependencies": {
+    "@babel/plugin-transform-runtime": "^7.12.15"
+  }
+}
