@@ -55,7 +55,7 @@ renderListItems = function (source, destination) {
 };
 
 prettyDateView = function (text) {
-    if (text === undefined) return "-";
+    if (text === undefined || text == null) return "-";
     const data = text.split("-");
     return `${months[parseInt(data[1])]} ${data[0]}`;
 };
