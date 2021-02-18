@@ -7,7 +7,7 @@ const DBService = class {
         this.lastResults = [];
     };
 
-    getData = async (url) => {
+    getData = async url => {
         return await fetch(url).then(resp => resp.json());
     };
 
@@ -151,7 +151,7 @@ const DBService = class {
     };
 
     // tv card info
-    getTvCard = id => {
+    getTvCard = (id) => {
         return this.getData(`${SERVER_PATH}/tv/${id}?api_key=${API_KEY}&language=${this.lang}`);
     };
 
@@ -178,13 +178,13 @@ const DBService = class {
     };
 
     // movie card info
-    getMovieCard = id => {
+    getMovieCard = (id) => {
         return this.getData(`${SERVER_PATH}/movie/${id}?api_key=${API_KEY}&language=${this.lang}`);
     };
 
     //=======LAST RESPONSE=======
 
-    getNextPageFromResponses = page => {
+    getNextPageFromResponses = (page) => {
         console.log(this.lastResponse);
         if (this.lastResponse === "SIMPLE_SEARCH") return this.getSearchResults(undefined, page);
         return this.getData(this.lastResponse + `&page=${page}`);

@@ -51,7 +51,7 @@ searchForm.addEventListener("submit", (event) => {
     searchInput.value = "";
     if (value) {
         showLoading();
-        outputTextInfo.textContent = "Результаты поиска:";
+        outputTextInfo.textContent = "Searching results:";
         dbServiceUnit.getSearchResults(value, undefined).then(cardRendererUnit.preRenderCards);
     }
 });
