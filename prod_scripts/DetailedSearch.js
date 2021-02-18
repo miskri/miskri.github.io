@@ -28,7 +28,9 @@ const detailedSearchBtn = document.querySelector(".btn-detailed-search"),
     movieAdultContent = document.querySelector(".adult-content"),
     // min/max vote count
     movieMixMaxVoteShowMoreLess = document.querySelector(".sml-vote-count"),
-    movieMinMaxVoteCountBlock = document.querySelector(".vote-count-from-to-container"),
+    movieMinMaxVoteCountBlock = document.querySelector(
+        ".vote-count-from-to-container"
+    ),
     movieMinMaxVoteCountBtn = document.querySelector(".vote-count-btn"),
     movieMinMaxVoteInputFrom = document.querySelector(".vote-count-from-input"),
     movieMinMaxVoteInputTo = document.querySelector(".vote-count-to-input"),
@@ -36,19 +38,47 @@ const detailedSearchBtn = document.querySelector(".btn-detailed-search"),
     movieAverageVoteShowMoreLess = document.querySelector(".sml-vote-average"),
     movieAverageVoteBlock = document.querySelector(".vote-average-container"),
     movieAverageVoteBtn = document.querySelector(".vote-average-btn"),
-    movieAverageVoteInputFrom = document.querySelector(".vote-average-from-input"),
+    movieAverageVoteInputFrom = document.querySelector(
+        ".vote-average-from-input"
+    ),
     movieAverageVoteInputTo = document.querySelector(".vote-average-to-input"),
     // runtime
     movieRuntimeShowMoreLess = document.querySelector(".sml-runtime"),
     movieRuntimeBlock = document.querySelector(".runtime-container"),
     movieRuntimeBtn = document.querySelector(".runtime-btn"),
-    movieRuntimeHoursInputFrom = document.querySelector(".runtime-from-hours-input"),
-    movieRuntimeMinutesInputFrom = document.querySelector(".runtime-from-minutes-input"),
+    movieRuntimeHoursInputFrom = document.querySelector(
+        ".runtime-from-hours-input"
+    ),
+    movieRuntimeMinutesInputFrom = document.querySelector(
+        ".runtime-from-minutes-input"
+    ),
     movieRuntimeHoursInputTo = document.querySelector(".runtime-to-hours-input"),
-    movieRuntimeMinutesInputTo = document.querySelector(".runtime-to-minutes-input"),
+    movieRuntimeMinutesInputTo = document.querySelector(
+        ".runtime-to-minutes-input"
+    ),
     // tv detailed search message
     tvMessage = document.querySelector(".tv-message");
-const movieGenresArr = [28, 12, 16, 35, 80, 99, 18, 14, 36, 27, 53, 37, 878, 9648, 10751, 10402, 10749, 10770, 10752];
+const movieGenresArr = [
+    28,
+    12,
+    16,
+    35,
+    80,
+    99,
+    18,
+    14,
+    36,
+    27,
+    53,
+    37,
+    878,
+    9648,
+    10751,
+    10402,
+    10749,
+    10770,
+    10752
+];
 const tvGenresArr = [];
 let searchCategoryIsMovie = true;
 let movieFilterParams = {
@@ -75,32 +105,32 @@ let tvFilterParams = {
 }; // watch movieGenresArr.json
 
 const movieGenresIds = {
-    "action": 28,
-    "adventure": 12,
-    "animation": 16,
-    "comedy": 35,
-    "crime": 80,
-    "documentary": 99,
-    "drama": 18,
-    "family": 10751,
-    "fantasy": 14,
-    "history": 36,
-    "horror": 27,
-    "music": 10402,
-    "mystery": 9648,
-    "romance": 10749,
+    action: 28,
+    adventure: 12,
+    animation: 16,
+    comedy: 35,
+    crime: 80,
+    documentary: 99,
+    drama: 18,
+    family: 10751,
+    fantasy: 14,
+    history: 36,
+    horror: 27,
+    music: 10402,
+    mystery: 9648,
+    romance: 10749,
     "science-fiction": 878,
     "tv-movie": 10770,
-    "thriller": 53,
-    "war": 10752,
-    "western": 37
+    thriller: 53,
+    war: 10752,
+    western: 37
 };
 const movieSortByValues = {
-    "popularity": "popularity",
-    "releaseDate": "primary_release_date",
-    "originalTitle": "original_title",
-    "voteAverage": "vote_average",
-    "voteCount": "vote_count"
+    popularity: "popularity",
+    releaseDate: "primary_release_date",
+    originalTitle: "original_title",
+    voteAverage: "vote_average",
+    voteCount: "vote_count"
 };
 
 switchOffAllParams = function () {
@@ -166,7 +196,7 @@ toggleOffParams = function (object) {
     });
 };
 
-setMovieSearchParam = (target, param, value) => {
+setMovieSearchParam = function (target, param, value) {
     if (movieFilterParams[param] !== value) {
         movieFilterParams[param] = value;
         target.classList.remove("param-inactive");
@@ -175,19 +205,21 @@ setMovieSearchParam = (target, param, value) => {
     }
 }; // if sortBy is not selected sortByCategory is not selected too & default sortByCategory value is desc sorting
 
-
-sortCategoryCheck = () => {
+sortCategoryCheck = function () {
     if (movieFilterParams.sortBy !== "" && movieFilterParams.sortByType === "") {
         movieFilterParams.sortByType = ".desc";
         movieTypeSortByElements[0].classList.remove("param-inactive");
-    } else if (movieFilterParams.sortBy === "" && movieFilterParams.sortByType !== "") {
+    } else if (
+        movieFilterParams.sortBy === "" &&
+        movieFilterParams.sortByType !== ""
+    ) {
         movieFilterParams.sortByType = "";
         movieTypeSortByElements[0].classList.add("param-inactive");
         movieTypeSortByElements[1].classList.add("param-inactive");
     }
 };
 
-genreListChanging = (target, id) => {
+genreListChanging = function (target, id) {
     target.classList.toggle("param-inactive");
     let withGenres = movieFilterParams.withGenres;
     let withoutGenres = movieFilterParams.withoutGenres;
@@ -201,7 +233,6 @@ genreListChanging = (target, id) => {
         withoutGenres.push(id);
     } // if selected genres count is zero button "remove all" is not visible
 
-
     if (withGenres.length > 0) {
         toggleGenresBlock.style.display = "inherit";
     } else {
@@ -209,8 +240,14 @@ genreListChanging = (target, id) => {
     }
 }; // refresh value in input fields and reset values in filter param list
 
-
-inputFieldCleaner = (btn, inputFieldFrom, inputFieldTo, filterParam, paramFrom, paramTo) => {
+inputFieldCleaner = function (
+    btn,
+    inputFieldFrom,
+    inputFieldTo,
+    filterParam,
+    paramFrom,
+    paramTo
+) {
     if (!btn.classList.contains("param-inactive")) {
         btn.classList.add("param-inactive");
         inputFieldFrom.value = "";
@@ -221,8 +258,16 @@ inputFieldCleaner = (btn, inputFieldFrom, inputFieldTo, filterParam, paramFrom, 
     }
 }; // corrects the minimum and maximum possible values for the input fields & changes values in filter param list
 
-
-inputFieldChanged = (btn, inputFieldFrom, inputFieldTo, filterParam, paramFrom, paramTo, paramName, paramValue) => {
+inputFieldChanged = function (
+    btn,
+    inputFieldFrom,
+    inputFieldTo,
+    filterParam,
+    paramFrom,
+    paramTo,
+    paramName,
+    paramValue
+) {
     if (paramValue) {
         paramValue = parseFloat(paramValue);
         btn.classList.remove("param-inactive");
@@ -233,55 +278,100 @@ inputFieldChanged = (btn, inputFieldFrom, inputFieldTo, filterParam, paramFrom, 
             movieFilterParams[paramTo] = paramValue;
             inputFieldTo.value = `${paramValue}`;
         } // lower than equal
-        else if (paramName === paramTo && paramValue < movieFilterParams[paramFrom]) {
+        else if (
+            paramName === paramTo &&
+            paramValue < movieFilterParams[paramFrom]
+        ) {
             movieFilterParams[paramFrom] = paramValue;
             inputFieldFrom.value = `${paramValue}`;
         }
     } else {
         movieFilterParams[paramName] = -1;
 
-        if (movieFilterParams[paramFrom] === -1 && movieFilterParams[paramTo] === -1) {
+        if (
+            movieFilterParams[paramFrom] === -1 &&
+            movieFilterParams[paramTo] === -1
+        ) {
             btn.classList.add("param-inactive");
             movieFilterParams[filterParam] = false;
         }
     }
 }; // special void for changed input field (for runtime param) // TODO rewrite?
 
-
-inputFieldChangedSpecial = (btn, inputFieldFrom, inputFieldTo, filterParam, paramFrom, paramTo, paramName, paramValue) => {
+inputFieldChangedSpecial = function (
+    btn,
+    inputFieldFrom,
+    inputFieldTo,
+    filterParam,
+    paramFrom,
+    paramTo,
+    paramName,
+    paramValue
+) {
     if (paramValue) {
         paramValue = parseFloat(paramValue);
         btn.classList.remove("param-inactive");
         movieFilterParams[filterParam] = true;
         movieFilterParams[paramName] = paramValue; // greater than equal means paramFrom, gte can't be greater than lte
 
-        if (paramName === paramFrom && paramValue > movieFilterParams[paramTo] && movieFilterParams["runtimeHoursGte"] === movieFilterParams["runtimeHoursLte"]) {
+        if (
+            paramName === paramFrom &&
+            paramValue > movieFilterParams[paramTo] &&
+            movieFilterParams["runtimeHoursGte"] ===
+            movieFilterParams["runtimeHoursLte"]
+        ) {
             movieFilterParams[paramTo] = paramValue;
             inputFieldTo.value = `${paramValue}`;
         } // lower than equal
-        else if (paramName === paramTo && paramValue < movieFilterParams[paramFrom] && movieFilterParams["runtimeHoursGte"] === movieFilterParams["runtimeHoursLte"]) {
+        else if (
+            paramName === paramTo &&
+            paramValue < movieFilterParams[paramFrom] &&
+            movieFilterParams["runtimeHoursGte"] ===
+            movieFilterParams["runtimeHoursLte"]
+        ) {
             movieFilterParams[paramFrom] = paramValue;
             inputFieldFrom.value = `${paramValue}`;
         }
     } else {
         movieFilterParams[paramName] = -1;
 
-        if (movieFilterParams[paramFrom] === -1 && movieFilterParams[paramTo] === -1) {
+        if (
+            movieFilterParams[paramFrom] === -1 &&
+            movieFilterParams[paramTo] === -1
+        ) {
             btn.classList.add("param-inactive");
             movieFilterParams[filterParam] = false;
         }
     }
 };
 
-inputFieldHoursValueChangedFrom = () => {
-    inputFieldChangedSpecial(movieRuntimeBtn, movieRuntimeMinutesInputFrom, movieRuntimeMinutesInputTo, "runtimeFilter", "runtimeMinutesGte", "runtimeMinutesLte", "runtimeMinutesGte", movieRuntimeMinutesInputFrom.value);
+inputFieldHoursValueChangedFrom = function () {
+    inputFieldChangedSpecial(
+        movieRuntimeBtn,
+        movieRuntimeMinutesInputFrom,
+        movieRuntimeMinutesInputTo,
+        "runtimeFilter",
+        "runtimeMinutesGte",
+        "runtimeMinutesLte",
+        "runtimeMinutesGte",
+        movieRuntimeMinutesInputFrom.value
+    );
 };
 
-inputFieldHoursValueChangedTo = () => {
-    inputFieldChangedSpecial(movieRuntimeBtn, movieRuntimeMinutesInputFrom, movieRuntimeMinutesInputTo, "runtimeFilter", "runtimeMinutesGte", "runtimeMinutesLte", "runtimeMinutesLte", movieRuntimeMinutesInputTo.value);
+inputFieldHoursValueChangedTo = function () {
+    inputFieldChangedSpecial(
+        movieRuntimeBtn,
+        movieRuntimeMinutesInputFrom,
+        movieRuntimeMinutesInputTo,
+        "runtimeFilter",
+        "runtimeMinutesGte",
+        "runtimeMinutesLte",
+        "runtimeMinutesLte",
+        movieRuntimeMinutesInputTo.value
+    );
 };
 
-showMoreLess = (btn, block) => {
+showMoreLess = function (btn, block) {
     if (btn.textContent === "Show") {
         block.style.display = "inherit";
         btn.textContent = "Hide";
@@ -292,20 +382,19 @@ showMoreLess = (btn, block) => {
     }
 }; // show detailed search params on click
 
-
-detailedSearchBtn.addEventListener("click", () => {
+detailedSearchBtn.addEventListener("click", function () {
     detailedSearchBlock.style.display = "inherit";
     detailedSearchBtnContainer.style.display = "none";
 }); // hide detailed search
 
-detailedSearchCancel.addEventListener("click", () => {
+detailedSearchCancel.addEventListener("click", function () {
     detailedSearchBlock.style.display = "none";
     detailedSearchBtnContainer.style.display = "flex";
     switchOffAllParams();
     resetMovieParamValues(); // TODO resetTvParamValues
 }); // select search category (movie/tv)
 
-searchMainParam.addEventListener("click", event => {
+searchMainParam.addEventListener("click", function (event) {
     const target = event.target;
 
     if (target.closest("#movieFilter")) {
@@ -325,7 +414,7 @@ searchMainParam.addEventListener("click", event => {
         resetMovieParamValues();
     }
 });
-movieTypeSortBy.addEventListener("click", event => {
+movieTypeSortBy.addEventListener("click", function (event) {
     const target = event.target;
 
     if (target.closest("#ascending")) {
@@ -335,7 +424,11 @@ movieTypeSortBy.addEventListener("click", event => {
 
         if (movieFilterParams.sortBy === "") {
             const originalTitle = movieParamElements[2];
-            setMovieSearchParam(originalTitle, "sortBy", movieSortByValues["originalTitle"]);
+            setMovieSearchParam(
+                originalTitle,
+                "sortBy",
+                movieSortByValues["originalTitle"]
+            );
         }
     } else if (target.closest("#descending")) {
         target.classList.remove("param-inactive");
@@ -344,12 +437,16 @@ movieTypeSortBy.addEventListener("click", event => {
 
         if (movieFilterParams.sortBy === "") {
             const popularity = movieParamElements[0];
-            setMovieSearchParam(popularity, "sortBy", movieSortByValues["popularity"]);
+            setMovieSearchParam(
+                popularity,
+                "sortBy",
+                movieSortByValues["popularity"]
+            );
         }
     }
 }); // select sort type
 
-movieParamSortBy.addEventListener("click", event => {
+movieParamSortBy.addEventListener("click", function (event) {
     const target = event.target;
     const sortBtn = target.closest(".sort-by-param-btn");
 
@@ -360,7 +457,7 @@ movieParamSortBy.addEventListener("click", event => {
     }
 }); // show/hide genres list
 
-movieGenresShowMoreLess.addEventListener("click", () => {
+movieGenresShowMoreLess.addEventListener("click", function () {
     let btn = movieGenresShowMoreLess;
     showMoreLess(btn, movieGenresBlock);
 
@@ -373,11 +470,11 @@ movieGenresShowMoreLess.addEventListener("click", () => {
     }
 }); // remove all genres from search list
 
-movieToggleGenresBtn.addEventListener("click", () => {
+movieToggleGenresBtn.addEventListener("click", function () {
     let withGenres = movieFilterParams.withGenres;
     let withoutGenres = movieFilterParams.withoutGenres;
     const withGenresLen = withGenres.length;
-    movieGenresElements.forEach(item => {
+    movieGenresElements.forEach(function (item) {
         item.classList.add("param-inactive");
     });
 
@@ -387,7 +484,7 @@ movieToggleGenresBtn.addEventListener("click", () => {
 
     movieToggleGenresBlock.style.display = "none";
 });
-movieGenresBlock.addEventListener("click", event => {
+movieGenresBlock.addEventListener("click", function (event) {
     const target = event.target;
     const genreBtn = target.closest(".genre-btn");
 
@@ -395,63 +492,149 @@ movieGenresBlock.addEventListener("click", event => {
         genreListChanging(target, movieGenresIds[genreBtn.id]);
     }
 });
-movieAdultContent.addEventListener("input", () => {
+movieAdultContent.addEventListener("input", function () {
     movieFilterParams.adultContent = !movieFilterParams.adultContent;
 }); // vote count filter
 
-movieMixMaxVoteShowMoreLess.addEventListener("click", () => {
+movieMixMaxVoteShowMoreLess.addEventListener("click", function () {
     showMoreLess(movieMixMaxVoteShowMoreLess, movieMinMaxVoteCountBlock);
 });
-movieMinMaxVoteCountBtn.addEventListener("click", () => {
-    inputFieldCleaner(movieMinMaxVoteCountBtn, movieMinMaxVoteInputFrom, movieMinMaxVoteInputTo, "voteCountFilter", "voteCountGte", "voteCountLte");
+movieMinMaxVoteCountBtn.addEventListener("click", function () {
+    inputFieldCleaner(
+        movieMinMaxVoteCountBtn,
+        movieMinMaxVoteInputFrom,
+        movieMinMaxVoteInputTo,
+        "voteCountFilter",
+        "voteCountGte",
+        "voteCountLte"
+    );
 });
-movieMinMaxVoteInputFrom.addEventListener("change", () => {
-    inputFieldChanged(movieMinMaxVoteCountBtn, movieMinMaxVoteInputFrom, movieMinMaxVoteInputTo, "voteCountFilter", "voteCountGte", "voteCountLte", "voteCountGte", movieMinMaxVoteInputFrom.value);
+movieMinMaxVoteInputFrom.addEventListener("change", function () {
+    inputFieldChanged(
+        movieMinMaxVoteCountBtn,
+        movieMinMaxVoteInputFrom,
+        movieMinMaxVoteInputTo,
+        "voteCountFilter",
+        "voteCountGte",
+        "voteCountLte",
+        "voteCountGte",
+        movieMinMaxVoteInputFrom.value
+    );
 });
-movieMinMaxVoteInputTo.addEventListener("change", () => {
-    inputFieldChanged(movieMinMaxVoteCountBtn, movieMinMaxVoteInputFrom, movieMinMaxVoteInputTo, "voteCountFilter", "voteCountGte", "voteCountLte", "voteCountLte", movieMinMaxVoteInputTo.value);
+movieMinMaxVoteInputTo.addEventListener("change", function () {
+    inputFieldChanged(
+        movieMinMaxVoteCountBtn,
+        movieMinMaxVoteInputFrom,
+        movieMinMaxVoteInputTo,
+        "voteCountFilter",
+        "voteCountGte",
+        "voteCountLte",
+        "voteCountLte",
+        movieMinMaxVoteInputTo.value
+    );
 }); // vote average filter
 
-movieAverageVoteShowMoreLess.addEventListener("click", () => {
+movieAverageVoteShowMoreLess.addEventListener("click", function () {
     showMoreLess(movieAverageVoteShowMoreLess, movieAverageVoteBlock);
 });
-movieAverageVoteBtn.addEventListener("click", () => {
-    inputFieldCleaner(movieAverageVoteBtn, movieAverageVoteInputFrom, movieAverageVoteInputTo, "voteAverageFilter", "voteAverageGte", "voteAverageLte");
+movieAverageVoteBtn.addEventListener("click", function () {
+    inputFieldCleaner(
+        movieAverageVoteBtn,
+        movieAverageVoteInputFrom,
+        movieAverageVoteInputTo,
+        "voteAverageFilter",
+        "voteAverageGte",
+        "voteAverageLte"
+    );
 });
-movieAverageVoteInputFrom.addEventListener("change", () => {
-    inputFieldChanged(movieAverageVoteBtn, movieAverageVoteInputFrom, movieAverageVoteInputTo, "voteAverageFilter", "voteAverageGte", "voteAverageLte", "voteAverageGte", movieAverageVoteInputFrom.value);
+movieAverageVoteInputFrom.addEventListener("change", function () {
+    inputFieldChanged(
+        movieAverageVoteBtn,
+        movieAverageVoteInputFrom,
+        movieAverageVoteInputTo,
+        "voteAverageFilter",
+        "voteAverageGte",
+        "voteAverageLte",
+        "voteAverageGte",
+        movieAverageVoteInputFrom.value
+    );
 });
-movieAverageVoteInputTo.addEventListener("change", () => {
-    inputFieldChanged(movieAverageVoteBtn, movieAverageVoteInputFrom, movieAverageVoteInputTo, "voteAverageFilter", "voteAverageGte", "voteAverageLte", "voteAverageLte", movieAverageVoteInputTo.value);
+movieAverageVoteInputTo.addEventListener("change", function () {
+    inputFieldChanged(
+        movieAverageVoteBtn,
+        movieAverageVoteInputFrom,
+        movieAverageVoteInputTo,
+        "voteAverageFilter",
+        "voteAverageGte",
+        "voteAverageLte",
+        "voteAverageLte",
+        movieAverageVoteInputTo.value
+    );
 }); // runtime filter TODO fix
 
-movieRuntimeShowMoreLess.addEventListener("click", () => {
+movieRuntimeShowMoreLess.addEventListener("click", function () {
     showMoreLess(movieRuntimeShowMoreLess, movieRuntimeBlock);
 });
-movieRuntimeBtn.addEventListener("click", () => {
-    inputFieldCleaner(movieRuntimeBtn, movieRuntimeHoursInputFrom, movieRuntimeHoursInputTo, "runtimeFilter", "runtimeHoursGte", "runtimeHoursLte");
+movieRuntimeBtn.addEventListener("click", function () {
+    inputFieldCleaner(
+        movieRuntimeBtn,
+        movieRuntimeHoursInputFrom,
+        movieRuntimeHoursInputTo,
+        "runtimeFilter",
+        "runtimeHoursGte",
+        "runtimeHoursLte"
+    );
     movieRuntimeBtn.classList.remove("param-inactive");
-    inputFieldCleaner(movieRuntimeBtn, movieRuntimeMinutesInputFrom, movieRuntimeMinutesInputTo, "runtimeFilter", "runtimeMinutesGte", "runtimeMinutesLte");
+    inputFieldCleaner(
+        movieRuntimeBtn,
+        movieRuntimeMinutesInputFrom,
+        movieRuntimeMinutesInputTo,
+        "runtimeFilter",
+        "runtimeMinutesGte",
+        "runtimeMinutesLte"
+    );
 });
-movieRuntimeHoursInputFrom.addEventListener("change", () => {
-    inputFieldChanged(movieRuntimeBtn, movieRuntimeHoursInputFrom, movieRuntimeHoursInputTo, "runtimeFilter", "runtimeHoursGte", "runtimeHoursLte", "runtimeHoursGte", movieRuntimeHoursInputFrom.value);
+movieRuntimeHoursInputFrom.addEventListener("change", function () {
+    inputFieldChanged(
+        movieRuntimeBtn,
+        movieRuntimeHoursInputFrom,
+        movieRuntimeHoursInputTo,
+        "runtimeFilter",
+        "runtimeHoursGte",
+        "runtimeHoursLte",
+        "runtimeHoursGte",
+        movieRuntimeHoursInputFrom.value
+    );
     inputFieldHoursValueChangedFrom();
 });
-movieRuntimeHoursInputTo.addEventListener("change", () => {
-    inputFieldChanged(movieRuntimeBtn, movieRuntimeHoursInputFrom, movieRuntimeHoursInputTo, "runtimeFilter", "runtimeHoursGte", "runtimeHoursLte", "runtimeHoursLte", movieRuntimeHoursInputTo.value);
+movieRuntimeHoursInputTo.addEventListener("change", function () {
+    inputFieldChanged(
+        movieRuntimeBtn,
+        movieRuntimeHoursInputFrom,
+        movieRuntimeHoursInputTo,
+        "runtimeFilter",
+        "runtimeHoursGte",
+        "runtimeHoursLte",
+        "runtimeHoursLte",
+        movieRuntimeHoursInputTo.value
+    );
     inputFieldHoursValueChangedTo();
 });
-movieRuntimeMinutesInputFrom.addEventListener("change", () => {
+movieRuntimeMinutesInputFrom.addEventListener("change", function () {
     inputFieldHoursValueChangedFrom();
 });
-movieRuntimeMinutesInputTo.addEventListener("change", () => {
+movieRuntimeMinutesInputTo.addEventListener("change", function () {
     inputFieldHoursValueChangedTo();
 }); // apply search params
 
-detailedSearchApply.addEventListener("click", () => {
+detailedSearchApply.addEventListener("click", function () {
     if (searchCategoryIsMovie) {
         showLoading();
         outputTextInfo.textContent = "Detailed search result:";
-        dbServiceUnit.getDetailedSearchResultsMovie(dbServiceUnit.createDetailedResponse(movieFilterParams)).then(cardRendererUnit.preRenderCards);
+        dbServiceUnit
+            .getDetailedSearchResultsMovie(
+                dbServiceUnit.createDetailedResponse(movieFilterParams)
+            )
+            .then(cardRendererUnit.preRenderCards);
     }
 });

@@ -30,61 +30,65 @@ const cardRendererUnit = new CardRenderer();
 const dbServiceUnit = new DBService();
 let nextPage = 1;
 
-showLoading = () => {
+showLoading = function () {
     cardsList.append(loading);
 };
 
-smoothToTop = () => {
+smoothToTop = function () {
     window.scrollTo({
         top: 0,
         behavior: "smooth"
     });
 }; // get search value, get response for API and then render card if response is correct
 
-
-searchForm.addEventListener("submit", event => {
+searchForm.addEventListener("submit", function (event) {
     event.preventDefault();
     const value = searchInput.value;
     searchInput.value = "";
 
     if (value) {
         showLoading();
-        outputTextInfo.textContent = "Результаты поиска:";
-        dbServiceUnit.getSearchResults(value, undefined).then(cardRendererUnit.preRenderCards);
+        outputTextInfo.textContent = "Searching results:";
+        dbServiceUnit
+            .getSearchResults(value, undefined)
+            .then(cardRendererUnit.preRenderCards);
     }
 });
-fastSearchBtn.addEventListener("click", () => {
+fastSearchBtn.addEventListener("click", function () {
     searchForm.submit = true;
 }); //========================================================
 
-loadDefault = () => {
+loadDefault = function () {
     showLoading();
-    dbServiceUnit.getTrendingDay().then(cardRendererUnit.preRenderCards).then(() => {
-        outputTextInfo.textContent = "Popular today:";
-    });
+    dbServiceUnit
+        .getTrendingDay()
+        .then(cardRendererUnit.preRenderCards)
+        .then(function () {
+            outputTextInfo.textContent = "Popular today:";
+        });
 };
 
 loadDefault(); //========================================================
 // left bar opening
 
-hamburger.addEventListener("click", () => {
+hamburger.addEventListener("click", function () {
     leftMenu.classList.toggle("openMenu");
     hamburger.classList.toggle("open");
 }); // left bar closing
 
-document.addEventListener("click", event => {
+document.addEventListener("click", function (event) {
     const target = event.target;
 
     if (!target.closest(".left-menu")) {
         leftMenu.classList.remove("openMenu");
         hamburger.classList.remove("open");
-        dropdowns.forEach(item => {
+        dropdowns.forEach(function (item) {
             item.classList.remove("active");
         });
     }
 }); // dropdown in left bar opening & top/popular search
 
-leftMenu.addEventListener("click", event => {
+leftMenu.addEventListener("click", function (event) {
     event.preventDefault();
     const target = event.target;
     const dropdown = target.closest(".dropdown");
@@ -105,63 +109,93 @@ leftMenu.addEventListener("click", event => {
 
         switch (tabId) {
             case "trending-day":
-                dbServiceUnit.getTrendingDay().then(cardRendererUnit.preRenderCards).then(() => {
-                    outputTextInfo.textContent = "Popular today:";
-                });
+                dbServiceUnit
+                    .getTrendingDay()
+                    .then(cardRendererUnit.preRenderCards)
+                    .then(function () {
+                        outputTextInfo.textContent = "Popular today:";
+                    });
                 break;
 
             case "trending-week":
-                dbServiceUnit.getTrendingWeek().then(cardRendererUnit.preRenderCards).then(() => {
-                    outputTextInfo.textContent = "Popular this week:";
-                });
+                dbServiceUnit
+                    .getTrendingWeek()
+                    .then(cardRendererUnit.preRenderCards)
+                    .then(function () {
+                        outputTextInfo.textContent = "Popular this week:";
+                    });
                 break;
 
             case "top-rated-tv":
-                dbServiceUnit.getTopRatedTv().then(cardRendererUnit.preRenderCards).then(() => {
-                    outputTextInfo.textContent = "Most rated TV series and shows:";
-                });
+                dbServiceUnit
+                    .getTopRatedTv()
+                    .then(cardRendererUnit.preRenderCards)
+                    .then(function () {
+                        outputTextInfo.textContent = "Most rated TV series and shows:";
+                    });
                 break;
 
             case "popular-tv":
-                dbServiceUnit.getPopularTv().then(cardRendererUnit.preRenderCards).then(() => {
-                    outputTextInfo.textContent = "Popular TV series and shows:";
-                });
+                dbServiceUnit
+                    .getPopularTv()
+                    .then(cardRendererUnit.preRenderCards)
+                    .then(function () {
+                        outputTextInfo.textContent = "Popular TV series and shows:";
+                    });
                 break;
 
             case "week-tv":
-                dbServiceUnit.getWeekTv().then(cardRendererUnit.preRenderCards).then(() => {
-                    outputTextInfo.textContent = "TV series and shows this week:";
-                });
+                dbServiceUnit
+                    .getWeekTv()
+                    .then(cardRendererUnit.preRenderCards)
+                    .then(function () {
+                        outputTextInfo.textContent = "TV series and shows this week:";
+                    });
                 break;
 
             case "today-tv":
-                dbServiceUnit.getTodayTv().then(cardRendererUnit.preRenderCards).then(() => {
-                    outputTextInfo.textContent = "TV series and shows for today:";
-                });
+                dbServiceUnit
+                    .getTodayTv()
+                    .then(cardRendererUnit.preRenderCards)
+                    .then(function () {
+                        outputTextInfo.textContent = "TV series and shows for today:";
+                    });
                 break;
 
             case "top-rated-movie":
-                dbServiceUnit.getTopRatedMovie().then(cardRendererUnit.preRenderCards).then(() => {
-                    outputTextInfo.textContent = "Most rated films:";
-                });
+                dbServiceUnit
+                    .getTopRatedMovie()
+                    .then(cardRendererUnit.preRenderCards)
+                    .then(function () {
+                        outputTextInfo.textContent = "Most rated films:";
+                    });
                 break;
 
             case "popular-movie":
-                dbServiceUnit.getPopularMovie().then(cardRendererUnit.preRenderCards).then(() => {
-                    outputTextInfo.textContent = "Popular films now:";
-                });
+                dbServiceUnit
+                    .getPopularMovie()
+                    .then(cardRendererUnit.preRenderCards)
+                    .then(function () {
+                        outputTextInfo.textContent = "Popular films now:";
+                    });
                 break;
 
             case "newest-movie":
-                dbServiceUnit.getNowPlayingMovie().then(cardRendererUnit.preRenderCards).then(() => {
-                    outputTextInfo.textContent = "Now in cinemas:";
-                });
+                dbServiceUnit
+                    .getNowPlayingMovie()
+                    .then(cardRendererUnit.preRenderCards)
+                    .then(function () {
+                        outputTextInfo.textContent = "Now in cinemas:";
+                    });
                 break;
 
             case "now-playing-movie":
-                dbServiceUnit.getNewestMovie().then(cardRendererUnit.preRenderCards).then(() => {
-                    outputTextInfo.textContent = "Recently released films:";
-                });
+                dbServiceUnit
+                    .getNewestMovie()
+                    .then(cardRendererUnit.preRenderCards)
+                    .then(function () {
+                        outputTextInfo.textContent = "Recently released films:";
+                    });
                 break;
 
             default:
@@ -169,22 +203,24 @@ leftMenu.addEventListener("click", event => {
         }
     }
 
-    if (target.closest("#home")) document.location.href = "http://miskri.github.io";
+    if (target.closest("#home"))
+        document.location.href = "http://miskri.github.io";
 }); // film card image changing
 
-const changeImage = event => {
+const changeImage = function (event) {
     const card = event.target.closest(".cards__item");
 
     if (card) {
         const image = card.querySelector(".card__img");
-        if (image.dataset.backdrop) [image.src, image.dataset.backdrop] = [image.dataset.backdrop, image.src];
+        if (image.dataset.backdrop)
+            [image.src, image.dataset.backdrop] = [image.dataset.backdrop, image.src];
     }
 };
 
 cardsList.addEventListener("mouseover", changeImage);
 cardsList.addEventListener("mouseout", changeImage); // film card opening
 
-cardsList.addEventListener("click", event => {
+cardsList.addEventListener("click", function (event) {
     event.preventDefault();
     const target = event.target;
     const card = target.closest(".card");
@@ -195,7 +231,7 @@ cardsList.addEventListener("click", event => {
     }
 }); // film card closing
 
-modal.addEventListener("click", event => {
+modal.addEventListener("click", function (event) {
     const target = event.target;
 
     if (target.closest(".cross") || target.classList.contains("modal")) {
@@ -204,24 +240,28 @@ modal.addEventListener("click", event => {
     }
 }); // shows more content if possible
 
-paginator.addEventListener("click", event => {
+paginator.addEventListener("click", function (event) {
     event.preventDefault();
     showLoading();
-    dbServiceUnit.getNextPageFromResponses(nextPage).then(cardRendererUnit.preRenderCards);
+    dbServiceUnit
+        .getNextPageFromResponses(nextPage)
+        .then(cardRendererUnit.preRenderCards);
 }); // page position checker for upBtn activating
 
-window.addEventListener("scroll", () => {
-    if (document.documentElement.scrollTop >= clientHeight) upBtn.style.visibility = "visible";else upBtn.style.visibility = "hidden";
+window.addEventListener("scroll", function () {
+    if (document.documentElement.scrollTop >= clientHeight)
+        upBtn.style.visibility = "visible";
+    else upBtn.style.visibility = "hidden";
 }); // move to top after page reloading
 
-window.addEventListener("beforeunload", () => {
+window.addEventListener("beforeunload", function () {
     window.scrollTo(0, 0);
 }); // move to top of page
 
-upBtn.addEventListener("click", () => {
+upBtn.addEventListener("click", function () {
     smoothToTop();
 }); // to the start page
 
-titleWrapper.addEventListener("click", () => {
+titleWrapper.addEventListener("click", function () {
     document.location.href = "http://miskri.github.io";
 });
